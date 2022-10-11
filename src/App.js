@@ -3,7 +3,13 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">Picnic Quest</header>
+      <section className="new-container with-title">
+        <h3 className="title">Picnic Quest Test UI</h3>
+        <button type="button" className="nes-btn is-success">
+          "Click here"
+          ::after
+        </button>
+      </section>
     </div>
   );
 }
