@@ -5,12 +5,9 @@ import "nes.css/css/nes.min.css";
 function App() {
   return (
     <div className="App">
-      <section class="new-container with-title">
-        <h3 class="title">Picnic Quest Test UI</h3>
-        <button type="button" class="nes-btn is-success">
-          "Click here"
-          ::after
-        </button>
+      <section className="new-container with-title">
+        <p className="title">Picnic Quest Test UI</p>
+        <button type="button" className="nes-btn is-success">Click here</button>
       </section>
     </div>
   );
