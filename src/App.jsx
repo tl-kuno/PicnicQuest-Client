@@ -12,7 +12,7 @@ function App() {
     setIsLoading(true);
     try {
       const {data} = await axios.post(
-        'https://http://tlkuno.pythonanywhere.com/',
+        'https://tlkuno.pythonanywhere.com/',
         {command: 'sample command'},
         {
           headers: {
