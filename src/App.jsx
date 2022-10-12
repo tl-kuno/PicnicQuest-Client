@@ -32,13 +32,11 @@ function App() {
     }
   };
 
-  console.log(data);
-
   return (
     <div className="App">
       <div className="nes-container with-title">
         <p className="title">Picnic Quest Test UI</p>
-        <button onclick={handleClick} type="button" className="nes-btn is-success">Click here</button>
+        <button onClick={handleClick} type="button" className="nes-btn is-success">Click here</button>
       </div>
     </div>
   );
