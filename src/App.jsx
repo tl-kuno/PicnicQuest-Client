@@ -1,45 +1,58 @@
 import './App.css';
-import {React, useState} from 'react';
+import { React, useState } from 'react';
 import axios from 'axios';
 import "nes.css/css/nes.min.css";
 
+const baseUrl = 'https://tlkuno.pythonanywhere.com/?command='
+
+
 function App() {
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [err, setErr] = useState('');
+
+  const [command, setCommand] = useState("What next?");
+  const [output, setOutput] = useState(null);
+
+
+  function createURL(){
+    let fullUrl = "" + baseUrl
+    for (let i = 0; i < command.length; i++)
+      if (command[i] === " ") {
+        fullUrl = fullUrl + "+"
+      } else {
+        fullUrl = fullUrl + command[i]
+      }
+      return fullUrl
+  }
 
   const handleClick = async () => {
-    setIsLoading(true);
-    try {
-      const {data} = await axios.post(
-        'https://tlkuno.pythonanywhere.com/',
-        {command: 'sample command'},
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-        },
-      );
+      axios({
+        method:"GET",
+        url: createURL(),
+        responseType: 'json'
+      })
+    .then(function(response) {
+      setOutput(response.data.output)
+    })
+  }
 
-      console.log(JSON.stringify(data, null, 4));
-
-      setData(data);
-    } catch (err) {
-      setErr(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
+    return (
     <div className="App">
       <div className="nes-container with-title">
         <p className="title">Picnic Quest Test UI</p>
-        <button onClick={handleClick} type="button" className="nes-btn is-success">Click here</button>
+        <div className="nes-container is-rounded is-dark">
+          <p>{output}</p>
+        </div>
+        <div className="nes-field is-inline nes-inline">
+          <input type="text"
+            id="command_prompt"
+            className="nes-input is-dark"
+            placeholder={command}
+            onChange={e => setCommand(e.target.value)}
+          />
+        </div>
+        <button onClick={handleClick} type="button" className="nes-btn is-success">Try It!</button>
       </div>
     </div>
   );
-}
+};
 
 export default App;
