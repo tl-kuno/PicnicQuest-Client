@@ -5,12 +5,10 @@ import "nes.css/css/nes.min.css";
 
 const baseUrl = 'https://tlkuno.pythonanywhere.com/?command='
 
-
 function App() {
 
-  const [command, setCommand] = useState("What next?");
+  const [command, setCommand] = useState("");
   const [output, setOutput] = useState(null);
-
 
   function createURL(){
     let fullUrl = "" + baseUrl
@@ -31,7 +29,14 @@ function App() {
       })
     .then(function(response) {
       setOutput(response.data.output)
+      setCommand("")
     })
+  }
+
+  const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        handleClick();
+      }
   }
 
     return (
@@ -42,14 +47,23 @@ function App() {
           <p>{output}</p>
         </div>
         <div className="nes-field is-inline nes-inline">
-          <input type="text"
-            id="command_prompt"
+          <input 
+            type="text"
+            id="input_commandPrompt"
             className="nes-input is-dark"
-            placeholder={command}
+            placeholder="What next?"
+            value={command}
             onChange={e => setCommand(e.target.value)}
+            onKeyDown={handleKeyDown}
+            autoFocus
           />
         </div>
-        <button onClick={handleClick} type="button" className="nes-btn is-success">Try It!</button>
+        <button 
+          onClick={handleClick} 
+          type="button" 
+          className="nes-btn is-success"
+          id="button_submitCommand"
+          >Try It!</button>
       </div>
     </div>
   );
