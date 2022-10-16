@@ -22,14 +22,14 @@ function App() {
   }
 
   const handleClick = async () => {
-      axios({
-        method:"GET",
-        url: createURL(),
-        responseType: 'json'
-      })
+    setCommand("")
+    axios({
+      method:"GET",
+      url: createURL(),
+      responseType: 'json'
+    })
     .then(function(response) {
       setOutput(response.data.output)
-      setCommand("")
     })
   }
 
