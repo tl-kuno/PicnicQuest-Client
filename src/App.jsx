@@ -55,6 +55,7 @@ function App() {
             value={command}
             onChange={e => setCommand(e.target.value)}
             onKeyDown={handleKeyDown}
+            autocomplete="off"
             autoFocus
           />
         </div>
