@@ -1,71 +1,57 @@
 import './App.css';
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import "nes.css/css/nes.min.css";
+import { MainInput } from './components/MainInput';
+import { InteractionDisplay } from './components/InteractionDisplay';
 
-const baseUrl = 'https://tlkuno.pythonanywhere.com/?command='
+const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
 
-  const [command, setCommand] = useState("");
+  const [command, setCommand] = useState('');
   const [output, setOutput] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [numInteractions, setNumInteractions] = useState(0);
 
-  function createURL(){
-    let fullUrl = "" + baseUrl
-    for (let i = 0; i < command.length; i++)
-      if (command[i] === " ") {
-        fullUrl = fullUrl + "+"
-      } else {
-        fullUrl = fullUrl + command[i]
-      }
-      return fullUrl
+  useEffect(() => {
+    if (output !== null) {
+      interact();
+    }
+  }, [numInteractions]);
+
+  function interact() {
+    const newHistory = history.slice()
+    if (newHistory.length > 8) { newHistory.splice(0, 2) }
+    newHistory.push(
+      {'type': 'user', 'content': command }, 
+      {'type': 'bot', 'content': output })
+    setHistory(newHistory)
+    document.getElementById('main_input').value = '';
+    console.log(history)
   }
 
-  const handleClick = async () => {
-    setCommand("")
-    axios({
-      method:"GET",
-      url: createURL(),
-      responseType: 'json'
-    })
-    .then(function(response) {
-      setOutput(response.data.output)
-    })
+  function handleClick(e) {
+    e.preventDefault()
+    axios.get(baseUrl, { params: { command: command } }
+    )
+      .then(function (response) {
+        setNumInteractions(numInteractions + 1)
+        setOutput(response.data.output)
+      })
   }
 
-  const handleKeyDown = (e) => {
-      if (e.key === 'Enter') {
-        handleClick();
-      }
-  }
-
-    return (
+  return (
     <div className="App">
-      <div className="nes-container with-title">
+      <section className="nes-container with-title is-dark">
         <p className="title">Picnic Quest Test UI</p>
-        <div className="nes-container is-rounded is-dark">
-          <p>{output}</p>
-        </div>
-        <div className="nes-field is-inline nes-inline">
-          <input 
-            type="text"
-            id="input_commandPrompt"
-            className="nes-input is-dark"
-            placeholder="What next?"
-            value={command}
+        <InteractionDisplay history={history}/>
+        <form onSubmit={e => handleClick(e)}>
+          <MainInput
             onChange={e => setCommand(e.target.value)}
-            onKeyDown={handleKeyDown}
-            autocomplete="off"
-            autoFocus
           />
-        </div>
-        <button 
-          onClick={handleClick} 
-          type="button" 
-          className="nes-btn is-success"
-          id="button_submitCommand"
-          >Try It!</button>
-      </div>
+        </form>
+      </section>
     </div>
   );
 };
