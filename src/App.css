@@ -1,3 +1,7 @@
+html {
+  background-color: #212529;
+}
+
 .App {
   font-family: 'Press Start 2P', cursive;
   font-size: 13px;
@@ -28,11 +32,14 @@
   display: none;
 }
 
+.nes-ballooon {
+  width: fit-content;
+}
+
 .from-left {
-  text-align: left;
+float: left
 }
 
 .from-right {
-  text-align: right;
+  float: right;
 }
-

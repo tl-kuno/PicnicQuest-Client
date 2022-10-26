@@ -22,13 +22,12 @@ function App() {
 
   function interact() {
     const newHistory = history.slice()
-    if (newHistory.length > 8) { newHistory.splice(0, 2) }
+    // if (newHistory.length > 8) { newHistory.splice(0, 2) } limit the number of interactions
     newHistory.push(
       {'type': 'user', 'content': command }, 
       {'type': 'bot', 'content': output })
     setHistory(newHistory)
     document.getElementById('main_input').value = '';
-    console.log(history)
   }
 
   function handleClick(e) {
