@@ -1,4 +1,6 @@
 
+/* General Appearance */
+
 html {
   background-color: #212529;
 }
@@ -15,7 +17,7 @@ div {
   -ms-overflow-style: none;
   scrollbar-width: none;
   background-color: #212529;
-  max-width: 1200px
+  min-width: 1200px
 }
 
 
@@ -24,10 +26,22 @@ div {
   padding: 1rem;
 }
 
+/* Side Pane */
+.side-pane{
+  float:left;
+  height: 659px;
+  width: 250px;
+  margin-right: 25px;
+}
+
 /* Interaction display */
+.game-display{
+  float: left
+}
 
 .message-list{
   height: 550px;
+  width: 700px;
   overflow-y: scroll;
   overflow-x: hidden;
   -ms-overflow-style: none;

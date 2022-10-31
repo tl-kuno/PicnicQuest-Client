@@ -1,9 +1,10 @@
 import './App.css';
-import { React, useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import "nes.css/css/nes.min.css";
 import { MainInput } from './components/MainInput';
 import { InteractionDisplay } from './components/InteractionDisplay';
+import { SidePane } from './components/SidePane';
 
 const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
@@ -13,7 +14,7 @@ function App() {
   const [output, setOutput] = useState(null);
   const [history, setHistory] = useState([]);
   const [numInteractions, setNumInteractions] = useState(0);
-
+  const [confirmMsg, setConfirmMsg] = useState('')
 
   useEffect(() => {
     if (output !== null) {
@@ -21,12 +22,30 @@ function App() {
     }
   }, [numInteractions]);
 
+  function saveGame(e){
+    e.preventDefault()
+    const saveURL = baseUrl+'/save'
+    axios.post(saveURL)
+    .then(function (response) {
+      setConfirmMsg(response.data.confirmation)
+    })
+  }
+
+  function loadGame(e){
+    e.preventDefault()
+    const loadURL = baseUrl+'/load'
+    axios.get(loadURL)
+    .then(function (response) {
+      setConfirmMsg(response.data.confirmation)
+    })
+  }
+
   function interact() {
     const newHistory = history.slice()
     // if (newHistory.length > 8) { newHistory.splice(0, 2) } limit the number of interactions
     newHistory.push(
-      {'type': 'user', 'content': command }, 
-      {'type': 'bot', 'content': output })
+      { 'type': 'user', 'content': command },
+      { 'type': 'bot', 'content': output })
     setHistory(newHistory)
     document.getElementById('main_input').value = '';
   }
@@ -43,9 +62,11 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <p className="title">Picnic Quest Test UI</p>
-        <InteractionDisplay history={history}/>
+      <SidePane 
+      confirmation={confirmMsg}
+      saveFunction={e => saveGame(e)} loadFunction={e => loadGame(e)}/>
+      <div className='game-display'>
+        <InteractionDisplay history={history} />
         <form onSubmit={e => handleClick(e)}>
           <MainInput
             onChange={e => setCommand(e.target.value)}
