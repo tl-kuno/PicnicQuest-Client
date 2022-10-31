@@ -1,4 +1,9 @@
+
 html {
+  background-color: #212529;
+}
+
+div {
   background-color: #212529;
 }
 
@@ -10,6 +15,7 @@ html {
   -ms-overflow-style: none;
   scrollbar-width: none;
   background-color: #212529;
+  max-width: 1200px
 }
 
 
@@ -32,14 +38,16 @@ html {
   display: none;
 }
 
-.nes-ballooon {
+.message.-left {
+  margin-left: 0;
+  margin-right: auto;
   width: fit-content;
+  max-width: 600px;
 }
 
-.from-left {
-float: left
-}
-
-.from-right {
-  float: right;
+.message.-right {
+  margin-left: auto;
+  margin-right: 0;
+  width: fit-content;
+  max-width: 600px;
 }

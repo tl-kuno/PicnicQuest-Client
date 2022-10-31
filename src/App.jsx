@@ -1,5 +1,5 @@
 import './App.css';
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect} from 'react';
 import axios from 'axios';
 import "nes.css/css/nes.min.css";
 import { MainInput } from './components/MainInput';
@@ -13,6 +13,7 @@ function App() {
   const [output, setOutput] = useState(null);
   const [history, setHistory] = useState([]);
   const [numInteractions, setNumInteractions] = useState(0);
+
 
   useEffect(() => {
     if (output !== null) {
@@ -42,7 +43,7 @@ function App() {
 
   return (
     <div className="App">
-      <section className="nes-container with-title is-dark">
+      <div>
         <p className="title">Picnic Quest Test UI</p>
         <InteractionDisplay history={history}/>
         <form onSubmit={e => handleClick(e)}>
@@ -50,7 +51,7 @@ function App() {
             onChange={e => setCommand(e.target.value)}
           />
         </form>
-      </section>
+      </div>
     </div>
   );
 };
