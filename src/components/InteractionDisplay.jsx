@@ -1,4 +1,4 @@
-import { React, useEffect, useRef } from "react";
+import { React } from "react";
 import { Interaction } from "./Interaction";
 import { v4 as uuidv4 } from 'uuid';
 import ScrollToBottom from "react-scroll-to-bottom";
@@ -8,7 +8,7 @@ const InteractionDisplay = (props) => {
         <div className="nes-container is-dark" mode="bottom">
             <ScrollToBottom scrollViewClassName="message-list" className="message-list" id="message-body">
                 {props.history.map((interaction) => (
-                    <Interaction
+                    <Interaction 
                         key={uuidv4()}
                         type={interaction.type}
                         content={interaction.content} />

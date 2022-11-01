@@ -4,7 +4,8 @@ import axios from 'axios';
 import "nes.css/css/nes.min.css";
 import { MainInput } from './components/MainInput';
 import { InteractionDisplay } from './components/InteractionDisplay';
-import { SidePane } from './components/SidePane';
+import { SidePanel } from './components/SidePanel';
+
 
 const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
@@ -14,7 +15,7 @@ function App() {
   const [output, setOutput] = useState(null);
   const [history, setHistory] = useState([]);
   const [numInteractions, setNumInteractions] = useState(0);
-  const [confirmMsg, setConfirmMsg] = useState('')
+  const [confirmMsg, setConfirmMsg] = useState(null)
 
   useEffect(() => {
     if (output !== null) {
@@ -22,22 +23,42 @@ function App() {
     }
   }, [numInteractions]);
 
-  function saveGame(e){
+  useEffect(() => {
+    if (confirmMsg !== null) {
+    const newHistory = history.slice()
+    // if (newHistory.length > 8) { newHistory.splice(0, 2) } limit the number of interactions
+    newHistory.push(
+      { 'type': 'bot', 'content': confirmMsg })
+    setHistory(newHistory)
+    }
+  }, [confirmMsg]);
+
+
+  function newGame(e) {
     e.preventDefault()
-    const saveURL = baseUrl+'/save'
-    axios.post(saveURL)
-    .then(function (response) {
-      setConfirmMsg(response.data.confirmation)
-    })
+    const newURL = baseUrl + '/new'
+    axios.post(newURL)
+      .then(function (response) {
+        setConfirmMsg(response.data.intro)
+      })
   }
 
-  function loadGame(e){
+  function saveGame(e) {
     e.preventDefault()
-    const loadURL = baseUrl+'/load'
+    const saveURL = baseUrl + '/save'
+    axios.post(saveURL)
+      .then(function (response) {
+        setConfirmMsg(response.data.confirmation)
+      })
+  }
+
+  function loadGame(e) {
+    e.preventDefault()
+    const loadURL = baseUrl + '/load'
     axios.get(loadURL)
-    .then(function (response) {
-      setConfirmMsg(response.data.confirmation)
-    })
+      .then(function (response) {
+        setConfirmMsg(response.data.confirmation)
+      })
   }
 
   function interact() {
@@ -62,17 +83,20 @@ function App() {
 
   return (
     <div className="App">
-      <SidePane 
-      confirmation={confirmMsg}
-      saveFunction={e => saveGame(e)} loadFunction={e => loadGame(e)}/>
-      <div className='game-display'>
-        <InteractionDisplay history={history} />
-        <form onSubmit={e => handleClick(e)}>
-          <MainInput
-            onChange={e => setCommand(e.target.value)}
-          />
-        </form>
-      </div>
+      <main className='main-content'>
+        <SidePanel
+          newGameFunction={e => newGame(e)}
+          saveFunction={e => saveGame(e)}
+          loadFunction={e => loadGame(e)} />
+        <div className='game-display'>
+          <InteractionDisplay history={history} />
+          <form onSubmit={e => handleClick(e)}>
+            <MainInput
+              onChange={e => setCommand(e.target.value)}
+            />
+          </form>
+        </div>
+      </main>
     </div>
   );
 };
