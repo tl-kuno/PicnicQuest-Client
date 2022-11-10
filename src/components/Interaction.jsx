@@ -1,4 +1,6 @@
 import React from "react";
+import { InteractionHighlighter } from "./InteractionHighlighter";
+
 
 
 const Interaction = (props) => {
@@ -9,7 +11,9 @@ const Interaction = (props) => {
 return (
     <div className={msgClass}>
         <div className={balloonClass}>
-            <p className={pClass}>{props.content}</p>
+            <InteractionHighlighter
+                {...props}
+                className={pClass}/>
         </div>
     </div>
 )

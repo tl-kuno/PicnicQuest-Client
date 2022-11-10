@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ScrollToBottom from "react-scroll-to-bottom";
 
 const InteractionDisplay = (props) => {
+
     return (
         <div className="nes-container is-dark" mode="bottom">
             <ScrollToBottom scrollViewClassName="message-list" className="message-list" id="message-body">
