@@ -50,7 +50,7 @@ function highlightByType(string, searchWords, className){
         newStringArray.push(substring)
         const highlightedText = newStringArray.map((substring) => {
             if (searchWords.includes(substring.toLowerCase())) {
-                const returnString = `<mark class=${className}>${substring}</mark> `
+                const returnString = `<mark class=${className}>${substring}</mark>`
                 return (returnString)
             }
             else {
