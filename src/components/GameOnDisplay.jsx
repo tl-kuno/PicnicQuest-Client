@@ -1,5 +1,4 @@
 import React from "react";
-import { SidePanel } from "./SidePanel";
 import { InteractionDisplay } from "./InteractionDisplay";
 import { MainInput } from "./MainInput";
 

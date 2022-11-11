@@ -79,7 +79,7 @@
 .balloon-container-left{
   margin-left: 1.5vw;
   margin-right: auto;
-  max-width: 40vw;
+  width:max(35vw, 400px);
 }
 
 .balloon-container-right {

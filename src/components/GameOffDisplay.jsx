@@ -5,7 +5,9 @@ const GameOffDisplay = (props) => {
 
     return (
         <>
-            <h1>THE GAME IS OFF</h1>
+            <div className='nes-container is-dark is-rounded game-display' style={{ padding: "2vw", paddingTop: "3vw" }}>
+                <p>{props.displayText}</p>
+            </div>
         </>)
 }
 

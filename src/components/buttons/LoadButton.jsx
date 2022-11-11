@@ -7,7 +7,7 @@ const LoadButton = (props) => {
         <button 
             onClick={props.onClick} 
             type="button" 
-            className="nes-btn is-primary skinny-button">
+            className="nes-btn is-primary wide-button">
             LOAD
         </button>
     )
