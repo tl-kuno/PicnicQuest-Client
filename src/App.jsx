@@ -2,15 +2,14 @@ import './App.css';
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import "nes.css/css/nes.min.css";
-import { MainInput } from './components/MainInput';
-import { InteractionDisplay } from './components/InteractionDisplay';
-import { SidePanel } from './components/SidePanel';
+import { GameOnDisplay } from './components/GameOnDisplay';
 
 
 const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
 
+  const [isPlaying, setIsPlaying] = useState(false);
   const [command, setCommand] = useState('');
   const [output, setOutput] = useState(null);
   const [history, setHistory] = useState([]);
@@ -25,11 +24,11 @@ function App() {
 
   useEffect(() => {
     if (confirmMsg !== null) {
-    const newHistory = history.slice()
-    // if (newHistory.length > 8) { newHistory.splice(0, 2) } limit the number of interactions
-    newHistory.push(
-      { 'type': 'bot', 'content': confirmMsg })
-    setHistory(newHistory)
+      const newHistory = history.slice()
+      // if (newHistory.length > 8) { newHistory.splice(0, 2) } limit the number of interactions
+      newHistory.push(
+        { 'type': 'bot', 'content': confirmMsg })
+      setHistory(newHistory)
     }
   }, [confirmMsg]);
 
@@ -79,23 +78,19 @@ function App() {
         setNumInteractions(numInteractions + 1)
         setOutput(response.data.output)
       })
-  }
+  } 
 
   return (
     <div className="App">
       <main className='main-content'>
-        <SidePanel
+        <GameOnDisplay
           newGameFunction={e => newGame(e)}
           saveFunction={e => saveGame(e)}
-          loadFunction={e => loadGame(e)} />
-        <div className='nes-container is-dark is-rounded game-display' style={{padding:"2vw", paddingTop:"3vw"}}>
-          <form onSubmit={e => handleClick(e)}>
-            <MainInput
-              onChange={e => setCommand(e.target.value)}
-            />
-          </form>
-          <InteractionDisplay history={history} />
-        </div>
+          loadFunction={e => loadGame(e)} 
+          formSubmit={e => handleClick(e)}
+          inputChange={e => setCommand(e.target.value)}
+          history={history}
+          />
       </main>
     </div>
   );

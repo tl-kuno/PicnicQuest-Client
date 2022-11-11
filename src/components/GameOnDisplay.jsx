@@ -1,22 +1,25 @@
 import React from "react";
+import { SidePanel } from "./SidePanel";
+import { InteractionDisplay } from "./InteractionDisplay";
+import { MainInput } from "./MainInput";
+
+
 
 const GameOnDisplay = (props) => {
 
     return (
         <>
-            <SidePanel
-                newGameFunction={e => newGame(e)}
-                saveFunction={e => saveGame(e)}
-                loadFunction={e => loadGame(e)} />
             <div className='nes-container is-dark is-rounded game-display' style={{ padding: "2vw", paddingTop: "3vw" }}>
-                <form onSubmit={e => handleClick(e)}>
+                <form onSubmit={props.formSubmit}>
                     <MainInput
-                        onChange={e => setCommand(e.target.value)}
+                        onChange={props.inputChange}
                     />
                 </form>
-                <InteractionDisplay history={history} />
+                <InteractionDisplay history={props.history} />
             </div>
         </>)
 }
 
-e
+export {
+    GameOnDisplay
+}
