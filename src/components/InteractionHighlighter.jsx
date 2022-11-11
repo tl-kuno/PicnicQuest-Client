@@ -13,7 +13,6 @@ const InteractionHighlighter = (props) => {
 }
 
 
-/* Module Exports */
 export {
     InteractionHighlighter
 }

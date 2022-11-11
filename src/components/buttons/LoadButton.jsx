@@ -13,7 +13,6 @@ const LoadButton = (props) => {
     )
 }
 
-/* Module Exports */
 export {
     LoadButton,
 }

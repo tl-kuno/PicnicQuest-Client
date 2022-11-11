@@ -2,8 +2,7 @@ import './App.css';
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import "nes.css/css/nes.min.css";
-import { MainInput } from './components/MainInput';
-import { InteractionDisplay } from './components/InteractionDisplay';
+import { GameOnDisplay } from './components/GameOnDisplay';
 import { SidePanel } from './components/SidePanel';
 
 
@@ -11,6 +10,7 @@ const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
 
+  const [isPlaying, setIsPlaying] = useState(false);
   const [command, setCommand] = useState('');
   const [output, setOutput] = useState(null);
   const [history, setHistory] = useState([]);
@@ -25,11 +25,11 @@ function App() {
 
   useEffect(() => {
     if (confirmMsg !== null) {
-    const newHistory = history.slice()
-    // if (newHistory.length > 8) { newHistory.splice(0, 2) } limit the number of interactions
-    newHistory.push(
-      { 'type': 'bot', 'content': confirmMsg })
-    setHistory(newHistory)
+      const newHistory = history.slice()
+      // if (newHistory.length > 8) { newHistory.splice(0, 2) } limit the number of interactions
+      newHistory.push(
+        { 'type': 'bot', 'content': confirmMsg })
+      setHistory(newHistory)
     }
   }, [confirmMsg]);
 
@@ -87,15 +87,13 @@ function App() {
         <SidePanel
           newGameFunction={e => newGame(e)}
           saveFunction={e => saveGame(e)}
-          loadFunction={e => loadGame(e)} />
-        <div className='game-display'>
-          <InteractionDisplay history={history} />
-          <form onSubmit={e => handleClick(e)}>
-            <MainInput
-              onChange={e => setCommand(e.target.value)}
-            />
-          </form>
-        </div>
+          loadFunction={e => loadGame(e)}
+        />
+        <GameOnDisplay
+          formSubmit={e => handleClick(e)}
+          inputChange={e => setCommand(e.target.value)}
+          history={history}
+        />
       </main>
     </div>
   );

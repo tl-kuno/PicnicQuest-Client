@@ -10,7 +10,7 @@ function highlightByType(string, searchWords, className){
 
 /** 
  * SOURCE CITATION
- * This code was adapted from user bvaughn on Git Hub
+ * This code was modeled after user bvaughn on Git Hub
  * link to repository: https://github.com/bvaughn/highlight-words-core
 **/
 
@@ -40,7 +40,7 @@ function highlightByType(string, searchWords, className){
             endIndex = startIndex + substrings[i][1]
             substring = string.substring(startIndex, endIndex)
             newStringArray.push(substring)
-            startIndex = endIndex + 1
+            startIndex = endIndex
             endIndex = (i < (substrings.length -1)) ? substrings[i+1][0] : string.length
         i++ 
         }
@@ -79,7 +79,6 @@ function hightLightWords(string){
 
 return(highlightedString)}
 
-/* Module Exports */
 export {
     highlightByType,
     hightLightWords

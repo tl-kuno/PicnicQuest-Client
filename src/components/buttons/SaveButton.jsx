@@ -13,7 +13,6 @@ const SaveButton = (props) => {
     )
 }
 
-/* Module Exports */
 export {
     SaveButton,
 }
