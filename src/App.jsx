@@ -88,13 +88,13 @@ function App() {
           newGameFunction={e => newGame(e)}
           saveFunction={e => saveGame(e)}
           loadFunction={e => loadGame(e)} />
-        <div className='game-display'>
-          <InteractionDisplay history={history} />
+        <div className='nes-container is-dark is-rounded game-display' style={{padding:"2vw", paddingTop:"3vw"}}>
           <form onSubmit={e => handleClick(e)}>
             <MainInput
               onChange={e => setCommand(e.target.value)}
             />
           </form>
+          <InteractionDisplay history={history} />
         </div>
       </main>
     </div>

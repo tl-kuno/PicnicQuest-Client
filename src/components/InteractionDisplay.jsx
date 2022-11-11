@@ -6,8 +6,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 const InteractionDisplay = (props) => {
 
     return (
-        <div className="nes-container is-dark" mode="bottom">
-            <ScrollToBottom scrollViewClassName="message-list" className="message-list" id="message-body">
+            <ScrollToBottom followButtonClassName="scroll-button" scrollViewClassName="message-list" className="message-list" id="message-body">
                 {props.history.map((interaction) => (
                     <Interaction 
                         key={uuidv4()}
@@ -15,11 +14,9 @@ const InteractionDisplay = (props) => {
                         content={interaction.content} />
                 ))}
             </ScrollToBottom>
-        </div>
     )
 }
 
-/* Module exports */
 export {
     InteractionDisplay,
 }

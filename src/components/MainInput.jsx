@@ -19,7 +19,6 @@ const MainInput= (props) => {
     )
 }
 
-/* Module Exports */
 export {
     MainInput,
 }

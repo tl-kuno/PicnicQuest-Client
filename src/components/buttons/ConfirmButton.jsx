@@ -13,7 +13,6 @@ const ConfirmButton = (props) => {
     )
 }
 
-/* Module Exports */
 export {
     ConfirmButton,
 }
