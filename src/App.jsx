@@ -3,6 +3,7 @@ import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import "nes.css/css/nes.min.css";
 import { GameOnDisplay } from './components/GameOnDisplay';
+import { SidePanel } from './components/SidePanel';
 
 
 const baseUrl = 'https://tlkuno.pythonanywhere.com'
@@ -78,19 +79,21 @@ function App() {
         setNumInteractions(numInteractions + 1)
         setOutput(response.data.output)
       })
-  } 
+  }
 
   return (
     <div className="App">
       <main className='main-content'>
-        <GameOnDisplay
+        <SidePanel
           newGameFunction={e => newGame(e)}
           saveFunction={e => saveGame(e)}
-          loadFunction={e => loadGame(e)} 
+          loadFunction={e => loadGame(e)}
+        />
+        <GameOnDisplay
           formSubmit={e => handleClick(e)}
           inputChange={e => setCommand(e.target.value)}
           history={history}
-          />
+        />
       </main>
     </div>
   );
