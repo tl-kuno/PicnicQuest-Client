@@ -9,7 +9,7 @@
 
 .main-content {
   width: min(80%, 1450px);
-  height: max(80vh, 800px);
+  height: max(80vh, 750px);
   margin: 10vh auto;
   display: flex;
   flex-wrap: wrap-reverse;
@@ -126,10 +126,20 @@
   color:#B077FF
 } 
 
-.game-off-text{
+.game-off-text {
     margin-left:auto; 
     margin-right:8vw; 
     text-align:center
   }
 
-  
+.font-small {
+    font-size: max(0.7vw, 10px);
+}
+
+.sample-command {
+  color: pink;
+  font-weight: bold;
+  font-style: oblique;
+  font-size: max(13px, 0.7vw);
+  margin-bottom: 3px;
+}

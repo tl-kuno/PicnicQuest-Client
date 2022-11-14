@@ -6,7 +6,7 @@ import { LoadButton } from "./LoadButton"
 
 const NotPlayingButtons = (props) => {
     return (
-        <div className="panel-button-box">
+        <div className="panel-button-box nes-container is-dark is-rounded">
             <div className="panel-button-row">
                 <NewGameButton onClick={props.newGameFunction} />
             </div>

@@ -4,7 +4,7 @@ import { QuitGameButton } from "./QuitButton"
 
 const PlayingButtons = (props) => {
     return (
-        <div className="panel-button-box">
+        <div className="nes-container is-dark is-rounded">
             <div className="panel-button-row">
                 <SaveButton onClick={props.saveFunction} />
             </div>

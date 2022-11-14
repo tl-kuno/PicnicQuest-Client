@@ -21,7 +21,7 @@ function App() {
                                         You are all bark, and no bite. Easily scared, but\
                                         fierce when it comes to defending your crew!\
                                         You live in a well-loved, one-story house in the suburbs\
-                                        with two humans who are off at their day jobs. As usual, \,
+                                        with two humans who are off at their day jobs. As usual, \
                                         you took this opportunity to take a nice long mid-day nap.`)
 
   useEffect(() => {
@@ -40,14 +40,16 @@ function App() {
     }
   }, [confirmMsg]);
 
-
   function newGame(e) {
     const newURL = baseUrl + '/new'
+    setNumInteractions(0)
     setIsPlaying(true)
+
     axios.post(newURL)
       .then(function (response) {
         setConfirmMsg(response.data.output)
       })
+      .then()
   }
 
   function saveGame(e) {
@@ -121,6 +123,7 @@ function App() {
           />
           }
       </main>
+      <footer>CS </footer>
     </div>
   );
 };
