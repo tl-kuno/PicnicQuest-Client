@@ -11,7 +11,7 @@ const GameStats = () => {
                 <p className="title">Sample Commands:</p>
                 <p className="sample-command">look</p>
                 <p className="font-small">To look around the living room</p>
-                <p className="sample-command">look sofa</p>
+                <p className="sample-command">look at sofa</p>
                 <p className="font-small">To examine the sofa</p>
                 <p className="sample-command">read letter</p>
                 <p className="font-small">To read the letter</p>
