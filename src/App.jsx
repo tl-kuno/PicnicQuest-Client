@@ -44,9 +44,8 @@ Click on New Game to begin!`)
 
   function newGame(e) {
     const newURL = baseUrl + '/new'
-    setNumInteractions(0)
     setIsPlaying(true)
-
+    setHistory([])
     axios.post(newURL)
       .then(function (response) {
         setConfirmMsg(response.data.output)
@@ -67,6 +66,7 @@ Click on New Game to begin!`)
     e.preventDefault()
     const loadURL = baseUrl + '/load'
     setIsPlaying(true)
+    setHistory([])
     axios.get(loadURL)
       .then(function (response) {
         setConfirmMsg(response.data.output)
