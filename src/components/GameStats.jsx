@@ -8,7 +8,7 @@ const GameStats = () => {
                 <h2 className="room-word">Kitchen</h2>
             </div>
             <div class="nes-container with-title is-dark is-rounded font-small">
-                <p className="title">Hint:</p>
+                <p className="title">Sample Commands:</p>
                 <p className="sample-command">look</p>
                 <p className="font-small">To look around the living room</p>
                 <p className="sample-command">look sofa</p>

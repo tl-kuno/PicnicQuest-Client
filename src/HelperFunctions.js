@@ -3,7 +3,9 @@ const features = ["sofa", "tv",  "suitcase", "refrigerator", "shelves", "cleanin
 const items = ["blueberries", "mushrooms", "dog treats", "towel", "umbrella", "letter", "wooden spoon", "football helmet", "soap", "flashlight"]
 const npcs = ["mouse", "ants", "raccoon", "birds"]
 const rooms = ["living room", "basement", "kitchen", "pantry", "bedroom", "bathroom", "porch", "alley", "roof", "park"]
-
+const welcome = ["welcome to picnic quest!"]
+const characters = ["letter", "junimo", "marni"]
+const gameFunctions = ["new game"]
 
 
 function highlightByType(string, searchWords, className){
@@ -64,22 +66,34 @@ function highlightByType(string, searchWords, className){
     }
 }
 
-function hightLightWords(string){
+function hightLightInteractionWords(string){
 // split string into chunks
     // look for directions
-    let highlightedString = highlightByType(string, directions, "direction-word")
+    let highlightedString = highlightByType(string, directions, "blue-word")
     // look for features
-    highlightedString = highlightByType(highlightedString, features, "feature-word")
+    highlightedString = highlightByType(highlightedString, features, "green-word")
     // look for items
-    highlightedString = highlightByType(highlightedString, items, "item-word")
+    highlightedString = highlightByType(highlightedString, items, "yellow-word")
     // look for NPCs
-    highlightedString = highlightByType(highlightedString, npcs, "npc-word")
+    highlightedString = highlightByType(highlightedString, npcs, "orange-word")
     // look for rooms
-    highlightedString = highlightByType(highlightedString, rooms, "room-word")
+    highlightedString = highlightByType(highlightedString, rooms, "purple-word")
 
 return(highlightedString)}
 
+function hightLightIntroductionWords(string){
+    // split string into chunks
+        // look for directions
+        let highlightedString = highlightByType(string, welcome, "blue-word")
+        // look for features
+        highlightedString = highlightByType(highlightedString, characters, "yellow-word")
+        // look for items
+        highlightedString = highlightByType(highlightedString, gameFunctions, "green-word")
+    
+    return(highlightedString)}
+
+
 export {
-    highlightByType,
-    hightLightWords
+    hightLightInteractionWords,
+    hightLightIntroductionWords
 }

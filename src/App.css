@@ -24,18 +24,20 @@
 }
 
 .game-off-text {
-  width:min(60vw, 600px);
-  margin-left: auto}
+  width: min(60vw, 600px);
+  margin-left: auto;
+  white-space: pre-wrap;
+}
 
 .side-panel {
   width: max(30%, 200px);
 }
 
 .junimo-game-off {
-  width: min(200px, 15vw); 
+  width: min(200px, 15vw);
   float: right;
   margin-top: 25px;
-  }
+}
 
 @media (max-width:1024px) {
   .game-display {
@@ -68,7 +70,7 @@
   font-size: max(1vw, 10px);
 }
 
-.message-list{
+.message-list {
   height: max(70vh, 400px);
   overflow-y: scroll;
   overflow-x: hidden;
@@ -87,10 +89,10 @@
   margin-bottom: 1vh;
 }
 
-.balloon-container-left{
+.balloon-container-left {
   margin-left: 1.5vw;
   margin-right: auto;
-  width:max(35vw, 400px);
+  width: max(35vw, 400px);
 }
 
 .balloon-container-right {
@@ -106,34 +108,44 @@
   white-space: pre-wrap;
 }
 
-.direction-word {
-  color:#108de0
+.blue-word {
+  font-size: max(15px, 0.7vw);
+  font-style: bolder;
+  color: #108de0
 }
 
-.feature-word {
-  color:#76c442
+.green-word {
+  font-size: max(15px, 0.7vw);
+  font-style: bolder;
+  color: #76c442
 }
 
-.item-word {
-  color:#f2c409
+.yellow-word {
+  font-size: max(15px, 0.7vw);
+  font-style: bolder;
+  color: #f2c409
 }
 
 .npc-word {
-  color:#D95D39
+  font-size: max(15px, 0.7vw);
+  font-style: bolder;
+  color: #D95D39
 }
 
-.room-word {
-  color:#B077FF
-} 
+.purple-word {
+  font-size: max(15px, 0.7vw);
+  font-style: bolder;
+  color: #B077FF
+}
 
 .game-off-text {
-    margin-left:auto; 
-    margin-right:8vw; 
-    text-align:center
-  }
+  margin-left: auto;
+  margin-right: 8vw;
+  text-align: center
+}
 
 .font-small {
-    font-size: max(0.7vw, 10px);
+  font-size: max(0.7vw, 10px);
 }
 
 .sample-command {

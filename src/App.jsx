@@ -17,12 +17,14 @@ function App() {
   const [history, setHistory] = useState([]);
   const [numInteractions, setNumInteractions] = useState(0);
   const [confirmMsg, setConfirmMsg] = useState(null)
-  const [offMsg, setOffMsg] = useState(`You are now Marni, the adorable German Shepard.\
-                                        You are all bark, and no bite. Easily scared, but\
-                                        fierce when it comes to defending your crew!\
-                                        You live in a well-loved, one-story house in the suburbs\
-                                        with two humans who are off at their day jobs. As usual, \
-                                        you took this opportunity to take a nice long mid-day nap.`)
+  const [offMsg, setOffMsg] = useState(`Welcome to Picnic Quest!\nI'm Junimo the cat, and it's so good that you're here!\n\n\
+You are now Marni, the adorable german shepard. You are all bark, \
+and no bite, easily scared, but fierce when it comes to defending your \
+crew! We live in a well-loved, \
+one-story house in the suburbs with two humans who are off at their \
+day jobs. As usual, you took this opportunity to take a nice long \
+mid-day nap. I left you a letter, please read it when you wake up!\n\n\
+Click on New Game to begin!`)
 
   useEffect(() => {
     if (output !== null) {
@@ -112,16 +114,16 @@ function App() {
           quitFunction={e => quitGame(e)}
           isPlaying={isPlaying}
         />
-        { isPlaying ? 
-        <GameOnDisplay
-          formSubmit={e => handleClick(e)}
-          inputChange={e => setCommand(e.target.value)}
-          history={history}/>
-          : 
-          <GameOffDisplay 
-          displayText={offMsg}
+        {isPlaying ?
+          <GameOnDisplay
+            formSubmit={e => handleClick(e)}
+            inputChange={e => setCommand(e.target.value)}
+            history={history} />
+          :
+          <GameOffDisplay
+            displayText={offMsg}
           />
-          }
+        }
       </main>
       <footer>CS </footer>
     </div>

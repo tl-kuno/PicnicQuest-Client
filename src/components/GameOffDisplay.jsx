@@ -1,8 +1,11 @@
 import React from "react";
 import junimo from "../images/junimo1.png"
-
+import { hightLightIntroductionWords } from "../HelperFunctions";
+var parse = require('html-react-parser')
 
 const GameOffDisplay = (props) => {
+
+    var highlightedText = parse(hightLightIntroductionWords(props.displayText))
 
     return (
         <>
@@ -11,7 +14,7 @@ const GameOffDisplay = (props) => {
                     <img src={junimo} className="junimo-game-off"/>
                 </div>
                 <div className='nes-balloon from-right is-dark game-off-text' style={{marginLeft:"auto", marginRight:"8vw", textAlign:"center"}}>
-                    <p>{props.displayText}</p>
+                    <p>{highlightedText}</p>
                 </div>
             </div>
         </>)
