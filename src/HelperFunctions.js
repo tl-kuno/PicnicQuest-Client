@@ -1,5 +1,5 @@
 const directions = ["north", "south", "east", "west"]
-const features = ["sofa", "tv",  "suitcase", "refrigerator", "shelves", "cleaning supplies", "blanket", "window", "sink", "bathtub", "rocking chair", "dirt pile", "guitar", "neighborhood", "table", "friends"]
+const features = ["sofa", "tv",  "suitcase", "refrigerator", "shelves", "cleaning supplies", "blanket", "window", "windows", "sink", "bathtub", "rocking chair", "dirt pile", "guitar", "neighborhood", "table", "friends"]
 const items = ["blueberries", "mushrooms", "dog treats", "towel", "umbrella", "letter", "wooden spoon", "football helmet", "soap", "flashlight"]
 const npcs = ["mouse", "ants", "raccoon", "birds"]
 const rooms = ["living room", "basement", "kitchen", "pantry", "bedroom", "bathroom", "porch", "alley", "roof", "park"]

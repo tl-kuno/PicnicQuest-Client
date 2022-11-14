@@ -17,7 +17,12 @@ function App() {
   const [history, setHistory] = useState([]);
   const [numInteractions, setNumInteractions] = useState(0);
   const [confirmMsg, setConfirmMsg] = useState(null)
-  const [offMsg, setOffMsg] = useState("You are You are now Marni, the adorable german shepard. Marni is all bark, and no bite. Easily scared, but fierce when it comes to defending your crew! You live in a well-loved, one-story house in the suburbs with two humans who are off at their day jobs. As usual, you took this opportunity to take a nice long mid-day nap. Marni")
+  const [offMsg, setOffMsg] = useState(`You are now Marni, the adorable German Shepard.\
+                                        You are all bark, and no bite. Easily scared, but\
+                                        fierce when it comes to defending your crew!\
+                                        You live in a well-loved, one-story house in the suburbs\
+                                        with two humans who are off at their day jobs. As usual, \,
+                                        you took this opportunity to take a nice long mid-day nap.`)
 
   useEffect(() => {
     if (output !== null) {
