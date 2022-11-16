@@ -15,6 +15,7 @@ function App() {
   const [command, setCommand] = useState('');
   const [output, setOutput] = useState(null);
   const [history, setHistory] = useState([]);
+  const [currentRoom, setCurrentRoom] = useState("Living Room")
   const [numInteractions, setNumInteractions] = useState(0);
   const [confirmMsg, setConfirmMsg] = useState(null)
   const [offMsg, setOffMsg] = useState(`Welcome to Picnic Quest!\nI'm Junimo the cat, and it's so good that you're here!\n\n\
@@ -70,6 +71,7 @@ Click on New Game to begin!`)
     axios.get(loadURL)
       .then(function (response) {
         setConfirmMsg(response.data.output)
+        setCurrentRoom(response.data.location)
       })
   }
 
@@ -91,6 +93,7 @@ Click on New Game to begin!`)
       { 'type': 'user', 'content': command },
       { 'type': 'bot', 'content': output })
     setHistory(newHistory)
+
     document.getElementById('main_input').value = '';
   }
 
@@ -101,6 +104,7 @@ Click on New Game to begin!`)
       .then(function (response) {
         setNumInteractions(numInteractions + 1)
         setOutput(response.data.output)
+        setCurrentRoom(response.data.location)
       })
   }
 
@@ -113,6 +117,7 @@ Click on New Game to begin!`)
           loadFunction={e => loadGame(e)}
           quitFunction={e => quitGame(e)}
           isPlaying={isPlaying}
+          location={currentRoom}
         />
         {isPlaying ?
           <GameOnDisplay

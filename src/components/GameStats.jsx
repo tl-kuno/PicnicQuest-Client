@@ -1,11 +1,11 @@
 import React from "react";
 
-const GameStats = () => {
+const GameStats = (props) => {
     return (
         <>
             <div class="nes-container with-title is-centered is-dark is-rounded">
                 <p className="title">Currrent Room</p>
-                <h2 className="room-word">Kitchen</h2>
+                <h2 className="room-word">{props.location}</h2>
             </div>
             <div class="nes-container with-title is-dark is-rounded font-small">
                 <p className="title">Sample Commands:</p>
