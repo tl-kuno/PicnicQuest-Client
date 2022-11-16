@@ -11,6 +11,7 @@ const GameOnDisplay = (props) => {
             <div className='nes-container is-dark is-rounded game-display' style={{ padding: "2vw", paddingTop: "3vw" }}>
                 <form onSubmit={props.formSubmit}>
                     <MainInput
+                        value={props.input}
                         onChange={props.inputChange}
                     />
                 </form>

@@ -9,34 +9,26 @@
 
 .main-content {
   width: min(80%, 1450px);
-  height: max(80vh, 750px);
+  height: max(80vh, 800px);
   margin: 10vh auto;
   display: flex;
   flex-wrap: wrap-reverse;
+  justify-content: center;
+  align-items: center; 
 }
 
 .game-display {
   width: max(68%, 400px);
+  height: clamp(725px, 80vh, 1000px);
   display: flex;
   flex-direction: column-reverse;
   border: 0px;
   font-size: max(0.7vw, 13px);
 }
 
-.game-off-text {
-  width: min(60vw, 600px);
-  margin-left: auto;
-  white-space: pre-wrap;
-}
-
 .side-panel {
   width: max(30%, 200px);
-}
-
-.junimo-game-off {
-  width: min(200px, 15vw);
-  float: right;
-  margin-top: 25px;
+  height: min(80vh, 1000px);
 }
 
 @media (max-width:1024px) {
@@ -138,11 +130,37 @@
   color: #B077FF
 }
 
+.pink-word {
+  font-size: max(15px, 0.7vw);
+  font-style: bolder;
+  color: pink;
+}
+
+.big-word {
+  font-size: max(15px, 0.7vw);
+  font-style: bolder;
+  color: white;
+}
+
+.game-off {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .game-off-text {
   margin-left: auto;
   margin-right: 8vw;
-  text-align: center
+  text-align: center;
+  white-space: pre-wrap;
+  font-size: max(12px, 80%);
 }
+
+.game-off-junimo {
+  width: min(200px, 15vw);
+  float: right;
+  margin-top: 25px;
+}
+
 
 .font-small {
   font-size: max(0.7vw, 10px);

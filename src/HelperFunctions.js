@@ -3,6 +3,8 @@ const features = ["sofa", "tv",  "suitcase", "refrigerator", "shelves", "cleanin
 const items = ["blueberries", "mushrooms", "dog treats", "towel", "umbrella", "letter", "wooden spoon", "football helmet", "soap", "flashlight"]
 const npcs = ["mouse", "ants", "raccoon", "birds"]
 const rooms = ["living room", "basement", "kitchen", "pantry", "bedroom", "bathroom", "porch", "alley", "roof", "park"]
+const help = ["look:", "look at:", "go/move:", "take:", "drop:", "use:", "listen:", "wear:", "inventory:", "savegame:", "loadgame:", "other verbs:"]
+const bigWords = ["try these commands:"]
 const welcome = ["welcome to picnic quest!"]
 const characters = ["letter", "junimo", "marni"]
 const gameFunctions = ["new game"]
@@ -12,7 +14,7 @@ function highlightByType(string, searchWords, className){
 
 /** 
  * SOURCE CITATION
- * This code was modeled after user bvaughn on Git Hub
+ * This code was modeled after user bvaughn's Highlighter module on Git Hub
  * link to repository: https://github.com/bvaughn/highlight-words-core
 **/
 
@@ -78,6 +80,10 @@ function hightLightInteractionWords(string){
     highlightedString = highlightByType(highlightedString, npcs, "orange-word")
     // look for rooms
     highlightedString = highlightByType(highlightedString, rooms, "purple-word")
+    // look for help commands
+    highlightedString = highlightByType(highlightedString, help, "pink-word")
+    // look for titles
+    highlightedString = highlightByType(highlightedString, bigWords, "big-word")
 
 return(highlightedString)}
 

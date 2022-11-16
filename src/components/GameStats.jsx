@@ -3,11 +3,11 @@ import React from "react";
 const GameStats = (props) => {
     return (
         <>
-            <div class="nes-container with-title is-centered is-dark is-rounded">
+            <div className="nes-container with-title is-centered is-dark is-rounded">
                 <p className="title">Currrent Room</p>
-                <h2 className="room-word">{props.location}</h2>
+                <h2 className="room-word">{props.currentRoom}</h2>
             </div>
-            <div class="nes-container with-title is-dark is-rounded font-small">
+            <div className="nes-container with-title is-dark is-rounded font-small">
                 <p className="title">Sample Commands:</p>
                 <p className="sample-command">look</p>
                 <p className="font-small">To look around the living room</p>

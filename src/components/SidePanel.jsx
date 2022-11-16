@@ -7,7 +7,6 @@ const SidePanel = (props) => {
 
     return (
         <div className="side-panel">
-        <>
             { props.isPlaying ? 
             <div>
                 <GameStats {...props}/>
@@ -16,7 +15,6 @@ const SidePanel = (props) => {
                 : 
                 <NotPlayingButtons {...props}/>
             }
-        </>
         </div>
     )
 }

@@ -11,6 +11,7 @@ const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
 
+  const [gameId, setGameId] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false);
   const [command, setCommand] = useState('');
   const [output, setOutput] = useState(null);
@@ -46,17 +47,17 @@ Click on New Game to begin!`)
   function newGame(e) {
     const newURL = baseUrl + '/new'
     setIsPlaying(true)
-    axios.post(newURL)
+    axios.get(newURL)
       .then(function (response) {
         setConfirmMsg(response.data.output)
+        setGameId(response.data.key)
       })
-      .then()
   }
 
   function saveGame(e) {
     e.preventDefault()
     const saveURL = baseUrl + '/save'
-    axios.post(saveURL)
+    axios.post(saveURL, { params: { key: gameId } })
       .then(function (response) {
         setConfirmMsg(response.data.output)
       })
@@ -67,7 +68,7 @@ Click on New Game to begin!`)
     const loadURL = baseUrl + '/load'
     setIsPlaying(true)
 
-    axios.get(loadURL)
+    axios.get(loadURL, { params: { key: gameId } })
       .then(function (response) {
         setConfirmMsg(response.data.output)
         setCurrentRoom(response.data.location)
@@ -76,12 +77,12 @@ Click on New Game to begin!`)
 
   function quitGame(e) {
     e.preventDefault()
-    const loadURL = baseUrl + '/quit'
+    const quitURL = baseUrl + '/quit'
     setHistory([])
     setCurrentRoom("Living Room")
     setOffMsg("Thanks for playing!")
     setIsPlaying(false)
-    axios.get(loadURL)
+    axios.get(quitURL, { params: { key: gameId } })
       .then(function (response) {
         setConfirmMsg(response.data.output)
       })
@@ -100,8 +101,7 @@ Click on New Game to begin!`)
 
   function handleClick(e) {
     e.preventDefault()
-    axios.get(baseUrl, { params: { command: command } }
-    )
+    axios.get(baseUrl, { params: { command: command, key: gameId } })
       .then(function (response) {
         setNumInteractions(numInteractions + 1)
         setOutput(response.data.output)
@@ -131,7 +131,6 @@ Click on New Game to begin!`)
           />
         }
       </main>
-      <footer>CS </footer>
     </div>
   );
 };
