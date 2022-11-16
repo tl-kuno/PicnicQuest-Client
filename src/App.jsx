@@ -46,7 +46,6 @@ Click on New Game to begin!`)
   function newGame(e) {
     const newURL = baseUrl + '/new'
     setIsPlaying(true)
-    setHistory([])
     axios.post(newURL)
       .then(function (response) {
         setConfirmMsg(response.data.output)
@@ -67,7 +66,7 @@ Click on New Game to begin!`)
     e.preventDefault()
     const loadURL = baseUrl + '/load'
     setIsPlaying(true)
-    setHistory([])
+
     axios.get(loadURL)
       .then(function (response) {
         setConfirmMsg(response.data.output)
@@ -78,6 +77,8 @@ Click on New Game to begin!`)
   function quitGame(e) {
     e.preventDefault()
     const loadURL = baseUrl + '/quit'
+    setHistory([])
+    setCurrentRoom("Living Room")
     setOffMsg("Thanks for playing!")
     setIsPlaying(false)
     axios.get(loadURL)
