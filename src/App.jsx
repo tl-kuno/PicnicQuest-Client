@@ -50,6 +50,7 @@ Click on New Game to begin!`)
     axios.get(newURL)
       .then(function (response) {
         setConfirmMsg(response.data.output)
+        setCurrentRoom(response.data.location)
         setGameId(response.data.key)
       })
   }
