@@ -14,7 +14,7 @@ function App() {
   const [input, setInput] = useState("")
   const [gameState, setGameState] = useState({
     command: "",
-    gameID: null,
+    gameId: null,
     history: [],
     input: "",
     isPlaying: false,
