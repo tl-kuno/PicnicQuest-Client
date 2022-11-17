@@ -10,7 +10,7 @@ import { SidePanel } from './components/SidePanel';
 const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
-
+  
   const [input, setInput] = useState("")
   const [gameState, setGameState] = useState({
     command: "",
@@ -23,7 +23,7 @@ function App() {
     output: "",
   })
 
-  // Upon page render, wake the server and retrieve the welcome message
+  // Upon page render, wake the server dand retrieve the welcome message
   useEffect(() => {
     const startURL = baseUrl + '/start'
     axios.post(startURL)
@@ -82,7 +82,7 @@ function App() {
   function saveGame(e) {
     e.preventDefault()
     const saveURL = baseUrl + '/save'
-    axios.post(saveURL, { params: { key: gameState.gameId } })
+    axios.get(saveURL, { params: { key: gameState.gameId } })
       .then(function (response) {
         const updatedItems = {}
         updatedItems["output"] = response.data.output
@@ -115,7 +115,7 @@ function App() {
   function quitGame(e) {
     e.preventDefault()
     const quitURL = baseUrl + '/quit'
-    axios.post(quitURL, { params: { key: gameState.gameId } })
+    axios.get(quitURL, { params: { key: gameState.gameId } })
       .then(function (response) {
         const updatedItems = {
           "history": [],
@@ -129,9 +129,10 @@ function App() {
         }))
       })
   }
+
   window.onbeforeunload = () => {
     const quitURL = baseUrl + '/quit'
-    axios.post(quitURL, { params: { key: gameState.gameId } })
+    axios.get(quitURL, { params: { key: gameState.gameId } })
   };
 
   function handleClick(e) {
