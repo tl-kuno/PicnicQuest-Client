@@ -10,7 +10,6 @@ const MainInput= (props) => {
           name="main_input"
           className="nes-input is-dark"
           placeholder="type a command and press enter..."
-          value={props.command}
           onChange={props.onChange}
           autoComplete="off"
           autoFocus

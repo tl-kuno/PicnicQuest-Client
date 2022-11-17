@@ -11,102 +11,142 @@ const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
 
-  const [gameId, setGameId] = useState(null)
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [command, setCommand] = useState('');
-  const [output, setOutput] = useState(null);
-  const [history, setHistory] = useState([]);
-  const [currentRoom, setCurrentRoom] = useState("Living Room")
-  const [numInteractions, setNumInteractions] = useState(0);
-  const [confirmMsg, setConfirmMsg] = useState(null)
-  const [offMsg, setOffMsg] = useState(`Welcome to Picnic Quest!\nI'm Junimo the cat, and it's so good that you're here!\n\n\
-You are now Marni, the adorable german shepard. You are all bark, \
-and no bite, easily scared, but fierce when it comes to defending your \
-crew! We live in a well-loved, \
-one-story house in the suburbs with two humans who are off at their \
-day jobs. As usual, you took this opportunity to take a nice long \
-mid-day nap. I left you a letter, please read it when you wake up!\n\n\
-Click on New Game to begin!`)
+  const [input, setInput] = useState("")
+  const [gameState, setGameState] = useState({
+    command: "",
+    gameID: null,
+    history: [],
+    input: "",
+    isPlaying: false,
+    location: "",
+    offMsg: "",
+    output: "",
+  })
 
+  // Upon page render, wake the server and retrieve the welcome message
   useEffect(() => {
-    if (output !== null) {
-      interact();
-    }
-  }, [numInteractions]);
+    const startURL = baseUrl + '/start'
+    axios.post(startURL)
+      .then(function (response) {
+        const updatedItems = {}
+        updatedItems["offMsg"] = response.data.output
+        setGameState(gameState => ({
+          ...gameState,
+          ...updatedItems
+        }))
+      })}, []);
 
+  // TODO use effect rendering properly?
+  // each time new output is recieved, print the results of
+  // the interaction to the screen
   useEffect(() => {
-    if (confirmMsg !== null) {
-      const newHistory = history.slice()
-      // if (newHistory.length > 8) { newHistory.splice(0, 2) } limit the number of interactions
-      newHistory.push(
-        { 'type': 'bot', 'content': confirmMsg })
-      setHistory(newHistory)
+    const newHistory = gameState.history.slice()
+    // display a command if there was one
+    if (gameState.command !== "") {
+      newHistory.push({ 'type': 'user', 'content': gameState.command})
+      document.getElementById('main_input').value = '';
     }
-  }, [confirmMsg]);
+    // display the output if there was output
+    if (gameState.output !== "") {
+      newHistory.push({ 'type': 'bot', 'content': gameState.output })
+    }
+    // update history
+    const updatedItems = {}
+    updatedItems["history"] = newHistory
+    setGameState(gameState => ({
+      ...gameState,
+      ...updatedItems
+    }))
+  }, [gameState.output])
+
 
   function newGame(e) {
+    e.preventDefault()
     const newURL = baseUrl + '/new'
-    setIsPlaying(true)
     axios.get(newURL)
       .then(function (response) {
-        setConfirmMsg(response.data.output)
-        setCurrentRoom(response.data.location)
-        setGameId(response.data.key)
+        const updatedItems = {
+          "gameId": response.data.key,
+          "isPlaying": true,
+          "history": [],
+          "location": response.data.location,
+          "output": response.data.output,
+      }
+        setGameState(gameState => ({
+          ...gameState,
+          ...updatedItems
+        }))
       })
   }
 
   function saveGame(e) {
     e.preventDefault()
     const saveURL = baseUrl + '/save'
-    axios.post(saveURL, { params: { key: gameId } })
+    axios.post(saveURL, { params: { key: gameState.gameId } })
       .then(function (response) {
-        setConfirmMsg(response.data.output)
+        const updatedItems = {}
+        updatedItems["output"] = response.data.output
+        setGameState(gameState => ({
+          ...gameState,
+          ...updatedItems
+        }))
       })
   }
 
   function loadGame(e) {
     e.preventDefault()
     const loadURL = baseUrl + '/load'
-    setIsPlaying(true)
 
-    axios.get(loadURL, { params: { key: gameId } })
+    axios.get(loadURL, { params: { key: gameState.gameId } })
       .then(function (response) {
-        setConfirmMsg(response.data.output)
-        setCurrentRoom(response.data.location)
+        const updatedItems = {
+          "history": [],
+          "isPlaying": true,
+          "location": response.data.location,
+          "output": response.data.output,
+        }
+        setGameState(gameState => ({
+          ...gameState,
+          ...updatedItems
+        }))
       })
   }
 
   function quitGame(e) {
     e.preventDefault()
     const quitURL = baseUrl + '/quit'
-    setHistory([])
-    setCurrentRoom("Living Room")
-    setOffMsg("Thanks for playing!")
-    setIsPlaying(false)
-    axios.get(quitURL, { params: { key: gameId } })
+    axios.post(quitURL, { params: { key: gameState.gameId } })
       .then(function (response) {
-        setConfirmMsg(response.data.output)
+        const updatedItems = {
+          "history": [],
+          "isPlaying": false,
+          "location": "Living Room",
+          "offMsg": response.data.output,
+        }
+        setGameState(gameState => ({
+          ...gameState,
+          ...updatedItems
+        }))
       })
   }
-
-  function interact() {
-    const newHistory = history.slice()
-    // if (newHistory.length > 8) { newHistory.splice(0, 2) } limit the number of interactions
-    newHistory.push(
-      { 'type': 'user', 'content': command },
-      { 'type': 'bot', 'content': output })
-    setHistory(newHistory)
-
-    document.getElementById('main_input').value = '';
-  }
+  window.onbeforeunload = () => {
+    const quitURL = baseUrl + '/quit'
+    axios.post(quitURL, { params: { key: gameState.gameId } })
+  };
 
   function handleClick(e) {
     e.preventDefault()
-    axios.get(baseUrl, { params: { command: command, key: gameId } })
+    axios.get(baseUrl, { params: { command: input, key: gameState.gameId } })
       .then(function (response) {
-        setNumInteractions(numInteractions + 1)
-        setOutput(response.data.output)
-        setCurrentRoom(response.data.location)
+        const updatedItems = {
+          "command": input,
+          "output": response.data.output,
+          "location": response.data.location
+        }
+        setGameState(gameState => ({
+          ...gameState,
+          ...updatedItems
+        }))
       })
   }
 
@@ -118,18 +158,16 @@ Click on New Game to begin!`)
           saveFunction={e => saveGame(e)}
           loadFunction={e => loadGame(e)}
           quitFunction={e => quitGame(e)}
-          isPlaying={isPlaying}
-          location={currentRoom}
-        />
-        {isPlaying ?
+          isPlaying={gameState.isPlaying}
+          location={gameState.location}
+        /> 
+        {gameState.isPlaying ?
           <GameOnDisplay
             formSubmit={e => handleClick(e)}
-            inputChange={e => setCommand(e.target.value)}
-            history={history} />
+            onChange={e => setInput(e.target.value)}
+            history={gameState.history} />
           :
-          <GameOffDisplay
-            displayText={offMsg}
-          />
+          <GameOffDisplay offMsg={gameState.offMsg}/>
         }
       </main>
     </div>
