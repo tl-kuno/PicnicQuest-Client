@@ -51,12 +51,16 @@ function App() {
       newHistory.push({ 'type': 'bot', 'content': gameState.output })
     }
     // update history
-    const updatedItems = {}
-    updatedItems["history"] = newHistory
+    const updatedItems = {
+      "history": newHistory,
+      "command": "",
+      "output": "",
+    }
     setGameState(gameState => ({
       ...gameState,
       ...updatedItems
     }))
+    setInput("")
   }, [gameState.output])
 
 
@@ -137,6 +141,9 @@ function App() {
 
   function handleClick(e) {
     e.preventDefault()
+    if (input === "") {
+      return
+    }
     axios.get(baseUrl, { params: { command: input, key: gameState.gameId } })
       .then(function (response) {
         const updatedItems = {
