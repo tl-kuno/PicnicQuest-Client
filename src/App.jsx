@@ -12,9 +12,11 @@ const baseUrl = 'https://tlkuno.pythonanywhere.com'
 function App() {
   
   const [input, setInput] = useState("")
+  const [gameName, setGameName] = useState("")
   const [gameState, setGameState] = useState({
     command: "",
     gameId: null,
+    userIp: null,
     history: [],
     input: "",
     isPlaying: false,
@@ -23,10 +25,10 @@ function App() {
     output: "",
   })
 
-  // Upon page render, wake the server dand retrieve the welcome message
   useEffect(() => {
     const startURL = baseUrl + '/start'
-    axios.post(startURL)
+    getIP()
+    axios.post(startURL, { params: { userIp: gameState.userIp } })
       .then(function (response) {
         const updatedItems = {}
         updatedItems["offMsg"] = response.data.output
@@ -36,9 +38,18 @@ function App() {
         }))
       })}, []);
 
-  // TODO use effect rendering properly?
-  // each time new output is recieved, print the results of
-  // the interaction to the screen
+
+  const getIP = async () => {
+    const res = await axios.get('https://geolocation-db.com/json/')
+    const updatedItems = {
+      "userIp": res.data.IPv4,
+    }
+    setGameState(gameState => ({
+      ...gameState,
+      ...updatedItems
+    }))
+  }
+
   useEffect(() => {
     const newHistory = gameState.history.slice()
     // display a command if there was one
@@ -63,14 +74,13 @@ function App() {
     setInput("")
   }, [gameState.output])
 
-
   function newGame(e) {
     e.preventDefault()
     const newURL = baseUrl + '/new'
-    axios.get(newURL)
+    axios.get(newURL, { params: { key: gameName, ip: gameState.userIp } })
       .then(function (response) {
         const updatedItems = {
-          "gameId": response.data.key,
+          "gameId": gameName,
           "isPlaying": true,
           "history": [],
           "location": response.data.location,
@@ -166,6 +176,7 @@ function App() {
           saveFunction={e => saveGame(e)}
           loadFunction={e => loadGame(e)}
           quitFunction={e => quitGame(e)}
+          onChange={e => setGameName(e.target.value)}
           isPlaying={gameState.isPlaying}
           location={gameState.location}
         /> 
@@ -175,7 +186,9 @@ function App() {
             onChange={e => setInput(e.target.value)}
             history={gameState.history} />
           :
-          <GameOffDisplay offMsg={gameState.offMsg}/>
+          <GameOffDisplay 
+          offMsg={gameState.offMsg}
+          />
         }
       </main>
     </div>

@@ -8,7 +8,7 @@ const NewGameButton = (props) => {
             onClick={props.onClick} 
             type="button" 
             className="wide-button nes-btn is-success">
-            NEW GAME
+            NEW
         </button>
     )
 }

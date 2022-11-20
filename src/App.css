@@ -173,3 +173,8 @@
   font-size: max(13px, 0.7vw);
   margin-bottom: 3px;
 }
+
+.new-game-input {
+  background-color: #212529;
+  padding: 1rem
+}
