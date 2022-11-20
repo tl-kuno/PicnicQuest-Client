@@ -10,7 +10,7 @@ import { SidePanel } from './components/SidePanel';
 const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
-  
+  const [loadGames, setLoadGames] = useState([])
   const [input, setInput] = useState("")
   const [gameName, setGameName] = useState("")
   const [gameState, setGameState] = useState({
@@ -26,35 +26,39 @@ function App() {
   })
 
   useEffect(() => {
+    const getIp = async () => {
+      const res = await axios.get('https://geolocation-db.com/json/')
+      const updatedItems = {
+        "userIp": res.data.IPv4,
+      }
+      setGameState(gameState => ({
+        ...gameState,
+        ...updatedItems
+      }))
+    }
+    getIp()
+  }, []);
+
+  useEffect(() => {
     const startURL = baseUrl + '/start'
-    getIP()
-    axios.post(startURL, { params: { userIp: gameState.userIp } })
+    axios.get(startURL, { params: { ip_address: gameState.userIp } })
       .then(function (response) {
-        const updatedItems = {}
-        updatedItems["offMsg"] = response.data.output
+        const updatedItems = {
+          "offMsg": response.data.output
+        }
+        setLoadGames(response.data.loadGames)
         setGameState(gameState => ({
           ...gameState,
           ...updatedItems
         }))
-      })}, []);
-
-
-  const getIP = async () => {
-    const res = await axios.get('https://geolocation-db.com/json/')
-    const updatedItems = {
-      "userIp": res.data.IPv4,
-    }
-    setGameState(gameState => ({
-      ...gameState,
-      ...updatedItems
-    }))
-  }
+      })
+  }, [gameState.userIp])
 
   useEffect(() => {
     const newHistory = gameState.history.slice()
     // display a command if there was one
     if (gameState.command !== "") {
-      newHistory.push({ 'type': 'user', 'content': gameState.command})
+      newHistory.push({ 'type': 'user', 'content': gameState.command })
       document.getElementById('main_input').value = '';
     }
     // display the output if there was output
@@ -85,7 +89,7 @@ function App() {
           "history": [],
           "location": response.data.location,
           "output": response.data.output,
-      }
+        }
         setGameState(gameState => ({
           ...gameState,
           ...updatedItems
@@ -175,19 +179,20 @@ function App() {
           newGameFunction={e => newGame(e)}
           saveFunction={e => saveGame(e)}
           loadFunction={e => loadGame(e)}
+          loadGames={loadGames}
           quitFunction={e => quitGame(e)}
           onChange={e => setGameName(e.target.value)}
           isPlaying={gameState.isPlaying}
           location={gameState.location}
-        /> 
+        />
         {gameState.isPlaying ?
           <GameOnDisplay
             formSubmit={e => handleClick(e)}
             onChange={e => setInput(e.target.value)}
             history={gameState.history} />
           :
-          <GameOffDisplay 
-          offMsg={gameState.offMsg}
+          <GameOffDisplay
+            offMsg={gameState.offMsg}
           />
         }
       </main>
