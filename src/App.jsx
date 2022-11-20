@@ -77,7 +77,7 @@ function App() {
   function newGame(e) {
     e.preventDefault()
     const newURL = baseUrl + '/new'
-    axios.get(newURL, { params: { key: gameName, ip: gameState.userIp } })
+    axios.get(newURL, { params: { key: gameName, ip_address: gameState.userIp } })
       .then(function (response) {
         const updatedItems = {
           "gameId": gameName,
