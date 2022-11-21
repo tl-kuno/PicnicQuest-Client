@@ -19,13 +19,13 @@ function App() {
     gameId: null,
     userIp: null,
     history: [],
-    input: "",
     isPlaying: false,
     location: "",
     offMsg: "",
     output: "",
   })
 
+  // on first page render, get the IP address of user
   useEffect(() => {
     const getIp = async () => {
       const res = await axios.get('https://geolocation-db.com/json/')
@@ -40,21 +40,27 @@ function App() {
     getIp()
   }, []);
 
+  // Once an IP address is found, ping the server with start command
+  // Until it returns and sets the offMsg
+  // While loop is so that if server is "sleeping", will ping again
   useEffect(() => {
     const startURL = baseUrl + '/start'
-    axios.get(startURL, { params: { ip_address: gameState.userIp } })
-      .then(function (response) {
-        const updatedItems = {
-          "offMsg": response.data.output
-        }
-        setLoadGames(response.data.loadGames)
-        setGameState(gameState => ({
-          ...gameState,
-          ...updatedItems
-        }))
-      })
+    while (gameState.offMsg === "") {
+      axios.get(startURL, { params: { ip_address: gameState.userIp } })
+        .then(function (response) {
+          const updatedItems = {
+            "offMsg": response.data.output
+          }
+          setLoadGames(response.data.loadGames)
+          setGameState(gameState => ({
+            ...gameState,
+            ...updatedItems
+          }))
+        })
+    }
   }, [gameState.userIp])
 
+  // Every time new output is returned, update the interaction display
   useEffect(() => {
     const newHistory = gameState.history.slice()
     // display a command if there was one
@@ -79,6 +85,8 @@ function App() {
     setInput("")
   }, [gameState.output])
 
+  // To start a new game, ping the server /new
+  // Response data will allow you to set initial gameState
   function newGame(e) {
     e.preventDefault()
     const newURL = baseUrl + '/new'
@@ -98,6 +106,8 @@ function App() {
       })
   }
 
+  // To save the game, ping server /save
+  // Will receive output string indicating outcome (succes/error)
   function saveGame(e) {
     e.preventDefault()
     const saveURL = baseUrl + '/save'
@@ -112,6 +122,11 @@ function App() {
       })
   }
 
+
+  // To load a game, ping server /load
+  // Response data will allow you to set the gameState
+  // from the previously saved game's status 
+  // toggle isPlaying to True
   function loadGame(e) {
     e.preventDefault()
     const loadURL = baseUrl + '/load'
@@ -119,30 +134,41 @@ function App() {
     axios.get(loadURL, { params: { key: gameState.gameId } })
       .then(function (response) {
         setTest(response.data)
-        // const updatedItems = {
-        //   "history": [],
-        //   "isPlaying": true,
-        //   "location": response.data.location,
-        //   "output": response.data.output,
-        // }
-        // setGameState(gameState => ({
-        //   ...gameState,
-        //   ...updatedItems
-        // }))
+        const updatedItems = {
+          "command": response.data.command,
+          "gameId": response.data.gameId,
+          "history": response.data.history,
+          "input": "",
+          "isPlaying": true,
+          "location": response.data.location,
+          "output": response.data.output,
+        }
+        setGameState(gameState => ({
+          ...gameState,
+          ...updatedItems
+        }))
       })
   }
 
+  // To quit the game, ping the server /quit
+  // Reset the gameState to original status
+  // Update the available load games
   function quitGame(e) {
     e.preventDefault()
     const quitURL = baseUrl + '/quit'
     while (gameState.offMsg === "") {
       axios.get(quitURL, { params: { key: gameState.gameId } })
         .then(function (response) {
+          setInput("")
+          setLoadGames(response.data.loadGames)
           const updatedItems = {
+            "command": "",
+            "gameId": null,
             "history": [],
             "isPlaying": false,
-            "location": "Living Room",
+            "location": "",
             "offMsg": response.data.output,
+            "output": "",
           }
           setGameState(gameState => ({
             ...gameState,
@@ -150,16 +176,19 @@ function App() {
           }))
         })
     }
-    
-    
   }
 
+  // When the user leaves the page, ping server /quit
+  // so it can perform clean up functions
   window.onbeforeunload = () => {
     const quitURL = baseUrl + '/quit'
     axios.get(quitURL, { params: { key: gameState.gameId } })
   };
 
-  function handleClick(e) {
+  // each time a users presses enter to send a command
+  // if the command is not an empty string, ping the server /
+  // response data is used to update the interaction history and location
+  function handleCommand (e) {
     e.preventDefault()
     if (input === "") {
       return
@@ -193,7 +222,7 @@ function App() {
         />
         {gameState.isPlaying ?
           <GameOnDisplay
-            formSubmit={e => handleClick(e)}
+            formSubmit={e => handleCommand(e)}
             onChange={e => setInput(e.target.value)}
             history={gameState.history} />
           :
