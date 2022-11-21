@@ -11,7 +11,10 @@ const NotPlayingButtons = (props) => {
         <>
         <div className="panel-button-box nes-container is-dark is-rounded">
             <div className="panel-button-row">
-                <NewGameInput onChange={props.onChange}/>
+                <NewGameInput 
+                          autoComplete="off"
+                          autoFocus
+                          onChange={props.onChange}/>
             </div>
             <div className="panel-button-row">
                 <NewGameButton onClick={props.newGameFunction} />

@@ -10,6 +10,7 @@ import { SidePanel } from './components/SidePanel';
 const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
+  const [test, setTest] = useState(null)
   const [loadGames, setLoadGames] = useState([])
   const [input, setInput] = useState("")
   const [gameName, setGameName] = useState("")
@@ -117,35 +118,40 @@ function App() {
 
     axios.get(loadURL, { params: { key: gameState.gameId } })
       .then(function (response) {
-        const updatedItems = {
-          "history": [],
-          "isPlaying": true,
-          "location": response.data.location,
-          "output": response.data.output,
-        }
-        setGameState(gameState => ({
-          ...gameState,
-          ...updatedItems
-        }))
+        setTest(response.data)
+        // const updatedItems = {
+        //   "history": [],
+        //   "isPlaying": true,
+        //   "location": response.data.location,
+        //   "output": response.data.output,
+        // }
+        // setGameState(gameState => ({
+        //   ...gameState,
+        //   ...updatedItems
+        // }))
       })
   }
 
   function quitGame(e) {
     e.preventDefault()
     const quitURL = baseUrl + '/quit'
-    axios.get(quitURL, { params: { key: gameState.gameId } })
-      .then(function (response) {
-        const updatedItems = {
-          "history": [],
-          "isPlaying": false,
-          "location": "Living Room",
-          "offMsg": response.data.output,
-        }
-        setGameState(gameState => ({
-          ...gameState,
-          ...updatedItems
-        }))
-      })
+    while (gameState.offMsg === "") {
+      axios.get(quitURL, { params: { key: gameState.gameId } })
+        .then(function (response) {
+          const updatedItems = {
+            "history": [],
+            "isPlaying": false,
+            "location": "Living Room",
+            "offMsg": response.data.output,
+          }
+          setGameState(gameState => ({
+            ...gameState,
+            ...updatedItems
+          }))
+        })
+    }
+    
+    
   }
 
   window.onbeforeunload = () => {

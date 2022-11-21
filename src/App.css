@@ -23,7 +23,7 @@
   display: flex;
   flex-direction: column-reverse;
   border: 0px;
-  font-size: max(0.7vw, 13px);
+  font-size: max(0.7vw, 16px);
 }
 
 .side-panel {
@@ -53,13 +53,7 @@
 .wide-button {
   width: clamp(150px, 13vw, 250px);
   height: clamp(50px, 3vw, 70px);
-  font-size: clamp(25px, 1vw, 13px);
-}
-
-.skinny-button {
-  width: clamp(97px, 6vw, 125px);
-  height: clamp(25px, 3vw, 50px);
-  font-size: max(1vw, 10px);
+  font-size: clamp(13px, 1vw, 25px);
 }
 
 .message-list {
@@ -101,43 +95,43 @@
 }
 
 .blue-word {
-  font-size: max(15px, 0.7vw);
+  font-size: max(20px, 0.7vw);
   font-style: bolder;
   color: #108de0
 }
 
 .green-word {
-  font-size: max(15px, 0.7vw);
+  font-size: clamp(13px, 0.7vw, 25px);
   font-style: bolder;
   color: #76c442
 }
 
 .yellow-word {
-  font-size: max(15px, 0.7vw);
+  font-size: clamp(13px, 0.7vw, 25px);
   font-style: bolder;
   color: #f2c409
 }
 
 .orange-word {
-  font-size: max(15px, 0.7vw);
+  font-size: clamp(13px, 0.7vw, 25px);
   font-style: bolder;
   color: #D95D39
 }
 
 .purple-word {
-  font-size: max(15px, 0.7vw);
+  font-size: clamp(13px, 0.7vw, 25px);
   font-style: bolder;
   color: #B077FF
 }
 
 .pink-word {
-  font-size: max(15px, 0.7vw);
+  font-size: clamp(13px, 0.7vw, 25px);
   font-style: bolder;
   color: pink;
 }
 
 .big-word {
-  font-size: max(15px, 0.7vw);
+  font-size: max(20px, 0.7vw);
   font-style: bolder;
   color: white;
 }
@@ -152,7 +146,7 @@
   margin-right: 8vw;
   text-align: center;
   white-space: pre-wrap;
-  font-size: max(12px, 80%);
+  font-size: clamp(13px, 0.7vw, 20px);
 }
 
 .game-off-junimo {
@@ -160,7 +154,6 @@
   float: right;
   margin-top: 25px;
 }
-
 
 .font-small {
   font-size: max(0.7vw, 10px);
