@@ -4,7 +4,6 @@ import { PlayingButtons } from "./buttons/PlayingButtons";
 import { NotPlayingButtons } from "./buttons/NotPlayingButtons";
 
 const SidePanel = (props) => {
-
     return (
         <div className="side-panel">
             { props.isPlaying ? 

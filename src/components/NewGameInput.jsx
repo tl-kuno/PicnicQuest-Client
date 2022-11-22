@@ -10,6 +10,7 @@ const NewGameInput = (props) => {
                     className="nes-input is-dark" 
                     onChange={props.onChange}
                     pattern={"[A-z][a-z]"}
+                    placeholder="Enter new username"
             />
         </div>
     )

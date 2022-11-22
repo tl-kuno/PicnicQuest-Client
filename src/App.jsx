@@ -12,11 +12,10 @@ const baseUrl = 'https://tlkuno.pythonanywhere.com'
 function App() {
   /* State variables for taking input */
   const [input, setInput] = useState("")
-  const [loadRequest, setLoadRequest] = useState("")
+  const [loadRequest, setLoadRequest] = useState("Select a Game")
   const [userName, setUserName] = useState("")
 
   /* State Variables set by Server */
-  const [test, setTest] = useState(null)
   const [loadGames, setLoadGames] = useState([])
   const [gameState, setGameState] = useState({
     command: "",
@@ -92,7 +91,11 @@ function App() {
   // Response data will allow you to set initial gameState
   function newGame(e) {
     e.preventDefault()
-    if (/^[a-zA-Z]+$/.test(userName)) {
+    if (userName === "") {
+      alert("Please enter a Username")
+    } else if (loadGames.indexOf(userName) > -1) {
+      alert("You already have a game with this Username")
+    } else if (/^[a-zA-Z]+$/.test(userName)) {
       const newURL = baseUrl + '/new'
       axios.get(newURL, { params: { userName: userName, ip_address: gameState.userIp } })
         .then(function (response) {
@@ -110,7 +113,7 @@ function App() {
           setUserName("")
         })
     } else {
-      alert("Whoops! User Names must only contain letters.")
+      alert("Whoops! Invalid Username. Username may only contain letters.")
     }
   }
   // To save the game, ping server /save
@@ -140,7 +143,6 @@ function App() {
     const identifier = loadRequest + "-" + gameState.ip_address
     axios.get(loadURL, { params: { identifier: identifier } })
       .then(function (response) {
-        setTest(response.data)
         const updatedItems = {
           "command": response.data.command,
           "identifier": response.data.identifier,
@@ -198,7 +200,7 @@ function App() {
   function handleLoadgame() {
     const parse_input = input.split
     // if the user has passed too many arguments to
-    if (parse_input.length() != 2) {
+    if (parse_input.length() !== 2) {
       const updatedItems = {
         "command": input,
         "output": "Invalid format, please use:\nloadgame <game name>",
@@ -232,7 +234,7 @@ function App() {
       return
     }
     // call handleLoadgame if user input includes loadgame
-    if ("loadgame" in input) {
+    if (input.indexOf("loadgame") > - 1) {
       handleLoadgame()
     }
     // otherwise, send a request containing the command to the server
@@ -260,8 +262,11 @@ function App() {
           saveFunction={e => saveGame(e)}
           loadFunction={e => loadGame(e)}
           loadGames={loadGames}
+          loadRequest={loadRequest}
+          onLoadRequestChange={e => setLoadRequest(e.target.value)}
           quitFunction={e => quitGame(e)}
-          onChange={e => setUserName(e.target.value)}
+          userName={userName}
+          onUsernameChange={e => setUserName(e.target.value)}
           isPlaying={gameState.isPlaying}
           location={gameState.location}
         />
