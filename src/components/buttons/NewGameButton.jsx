@@ -3,7 +3,7 @@ import React from "react";
 
 const NewGameButton = (props) => {
     var className = "wide-button nes-btn is-success"
-    if (props.userName == "") {
+    if (props.userName === "") {
        className = "wide-button nes-btn is-disabled"
     }
     return (

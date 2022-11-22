@@ -12,7 +12,7 @@ const baseUrl = 'https://tlkuno.pythonanywhere.com'
 function App() {
   /* State variables for taking input */
   const [input, setInput] = useState("")
-  const [loadRequest, setLoadRequest] = useState("Select a Game")
+  const [loadRequest, setLoadRequest] = useState("")
   const [userName, setUserName] = useState("")
 
   /* State Variables set by Server */
@@ -196,34 +196,6 @@ function App() {
     axios.get(quitURL, { params: { identifier: gameState.identifier } })
   };
 
-
-  function handleLoadgame() {
-    const parse_input = input.split
-    // if the user has passed too many arguments to
-    if (parse_input.length() !== 2) {
-      const updatedItems = {
-        "command": input,
-        "output": "Invalid format, please use:\nloadgame <game name>",
-      }
-      setGameState(gameState => ({
-        ...gameState,
-        ...updatedItems
-      }))
-    } else if (parse_input[1] === "continue") {
-      loadGame()
-    } else {
-      setLoadRequest(parse_input[1])
-      const updatedItems = {
-        "command": input,
-        "output": `Are you sure you would like to load ${parse_input[1]}?\n Your current progress will not be saved.\nEnter "loadgame continue" to confirm.`,
-      }
-      setGameState(gameState => ({
-        ...gameState,
-        ...updatedItems
-      }))
-    }
-  }
-
   // each time a users presses enter to send a command
   // if the command is not an empty string, ping the server /
   // response data is used to update the interaction history and location
@@ -232,10 +204,6 @@ function App() {
     // do nothing if the user did not enter a command
     if (input === "") {
       return
-    }
-    // call handleLoadgame if user input includes loadgame
-    if (input.indexOf("loadgame") > - 1) {
-      handleLoadgame()
     }
     // otherwise, send a request containing the command to the server
     else {

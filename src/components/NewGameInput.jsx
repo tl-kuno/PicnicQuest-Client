@@ -11,6 +11,8 @@ const NewGameInput = (props) => {
                     onChange={props.onChange}
                     pattern={"[A-z][a-z]"}
                     placeholder="Enter new username"
+                    autoComplete="off"
+                    autoFocus
             />
         </div>
     )
