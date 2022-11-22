@@ -20,7 +20,6 @@ function App() {
   const [loadGames, setLoadGames] = useState([])
   const [gameState, setGameState] = useState({
     command: "",
-    gameId: null,
     identifier: "",
     userIp: null,
     history: [],
@@ -95,10 +94,9 @@ function App() {
   function newGame(e) {
     e.preventDefault()
     const newURL = baseUrl + '/new'
-    axios.get(newURL, { params: { key: userName, ip_address: gameState.userIp } })
+    axios.get(newURL, { params: { userName: userName, ip_address: gameState.userIp } })
       .then(function (response) {
         const updatedItems = {
-          "gameId": userName,
           "identifier": response.data.identifier,
           "isPlaying": true,
           "history": [],
@@ -109,6 +107,7 @@ function App() {
           ...gameState,
           ...updatedItems
         }))
+        setUserName("")
       })
   }
 
@@ -142,7 +141,7 @@ function App() {
         setTest(response.data)
         const updatedItems = {
           "command": response.data.command,
-          "gameId": response.data.gameId,
+          "identifier": response.data.identifier,
           "history": response.data.history,
           "input": "",
           "isPlaying": true,
@@ -163,13 +162,13 @@ function App() {
     e.preventDefault()
     const quitURL = baseUrl + '/quit'
     while (gameState.offMsg === "") {
-      axios.get(quitURL, { params: { key: gameState.gameId } })
+      axios.get(quitURL, { params: { identifier: gameState.identifier } })
         .then(function (response) {
           setInput("")
           setLoadGames(response.data.loadGames)
           const updatedItems = {
             "command": "",
-            "gameId": null,
+            "identifier": "",
             "history": [],
             "isPlaying": false,
             "location": "",
@@ -188,7 +187,7 @@ function App() {
   // so it can perform clean up functions
   window.onbeforeunload = () => {
     const quitURL = baseUrl + '/quit'
-    axios.get(quitURL, { params: { key: gameState.gameId } })
+    axios.get(quitURL, { params: { identifier: gameState.identifier } })
   };
 
 
@@ -234,7 +233,7 @@ function App() {
     }
     // otherwise, send a request containing the command to the server
     else {
-      axios.get(baseUrl, { params: { command: input, key: gameState.gameId } })
+      axios.get(baseUrl, { params: { command: input, identifier: gameState.identifier } })
         .then(function (response) {
           const updatedItems = {
             "command": input,
