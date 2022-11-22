@@ -49,19 +49,18 @@ function App() {
   // While loop is so that if server is "sleeping", will ping again
   useEffect(() => {
     const startURL = baseUrl + '/start'
-    while (gameState.offMsg === "") {
-      axios.get(startURL, { params: { ip_address: gameState.userIp } })
-        .then(function (response) {
-          const updatedItems = {
-            "offMsg": response.data.output
-          }
-          setLoadGames(response.data.loadGames)
-          setGameState(gameState => ({
-            ...gameState,
-            ...updatedItems
-          }))
-        })
-    }
+    axios.get(startURL, { params: { ip_address: gameState.userIp } })
+      .then(function (response) {
+        const updatedItems = {
+          "offMsg": response.data.output
+        }
+        setLoadGames(response.data.loadGames)
+        setGameState(gameState => ({
+          ...gameState,
+          ...updatedItems
+        }))
+      })
+
   }, [gameState.userIp])
 
   // Every time new output is returned, update the interaction display
@@ -209,7 +208,7 @@ function App() {
       setLoadRequest(parse_input[1])
       const updatedItems = {
         "command": input,
-        "output": `Are you sure you would like to load ${parse_input[1]}?\n Your current progress will not be saved.\nEnter "loadgame continue" to confirm.` ,
+        "output": `Are you sure you would like to load ${parse_input[1]}?\n Your current progress will not be saved.\nEnter "loadgame continue" to confirm.`,
       }
       setGameState(gameState => ({
         ...gameState,
