@@ -136,7 +136,7 @@ function App() {
   function loadGame(e) {
     e.preventDefault()
     const loadURL = baseUrl + '/load'
-    identifier = loadRequest + "-" + gameState.ip_address
+    const identifier = loadRequest + "-" + gameState.ip_address
     axios.get(loadURL, { params: { identifier: identifier } })
       .then(function (response) {
         setTest(response.data)
@@ -193,7 +193,7 @@ function App() {
 
 
   function handleLoadgame() {
-    parse_input = input.split
+    const parse_input = input.split
     // if the user has passed too many arguments to
     if (parse_input.length() != 2) {
       const updatedItems = {
