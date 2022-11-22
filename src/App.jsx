@@ -92,24 +92,27 @@ function App() {
   // Response data will allow you to set initial gameState
   function newGame(e) {
     e.preventDefault()
-    const newURL = baseUrl + '/new'
-    axios.get(newURL, { params: { userName: userName, ip_address: gameState.userIp } })
-      .then(function (response) {
-        const updatedItems = {
-          "identifier": response.data.identifier,
-          "isPlaying": true,
-          "history": [],
-          "location": response.data.location,
-          "output": response.data.output,
-        }
-        setGameState(gameState => ({
-          ...gameState,
-          ...updatedItems
-        }))
-        setUserName("")
-      })
+    if (/^[a-zA-Z]+$/.test(userName)) {
+      const newURL = baseUrl + '/new'
+      axios.get(newURL, { params: { userName: userName, ip_address: gameState.userIp } })
+        .then(function (response) {
+          const updatedItems = {
+            "identifier": response.data.identifier,
+            "isPlaying": true,
+            "history": [],
+            "location": response.data.location,
+            "output": response.data.output,
+          }
+          setGameState(gameState => ({
+            ...gameState,
+            ...updatedItems
+          }))
+          setUserName("")
+        })
+    } else {
+      alert("Whoops! User Names must only contain letters.")
+    }
   }
-
   // To save the game, ping server /save
   // Will receive output string indicating outcome (succes/error)
   function saveGame(e) {
@@ -185,6 +188,8 @@ function App() {
   // When the user leaves the page, ping server /quit
   // so it can perform clean up functions
   window.onbeforeunload = () => {
+    // no clean up require if an identifier has not been set ()
+    if (gameState.identifier === "") { return }
     const quitURL = baseUrl + '/quit'
     axios.get(quitURL, { params: { identifier: gameState.identifier } })
   };
