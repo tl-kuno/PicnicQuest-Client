@@ -9,6 +9,7 @@ const NewGameInput = (props) => {
                     id="dark_field" 
                     className="nes-input is-dark" 
                     onChange={props.onChange}
+                    pattern="[A-z][a-z]{15}"
             />
         </div>
     )

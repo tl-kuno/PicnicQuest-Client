@@ -10,13 +10,18 @@ import { SidePanel } from './components/SidePanel';
 const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
+  /* State variables for taking input */
+  const [input, setInput] = useState("")
+  const [loadRequest, setLoadRequest] = useState("")
+  const [userName, setUserName] = useState("")
+
+  /* State Variables set by Server */
   const [test, setTest] = useState(null)
   const [loadGames, setLoadGames] = useState([])
-  const [input, setInput] = useState("")
-  const [gameName, setGameName] = useState("")
   const [gameState, setGameState] = useState({
     command: "",
     gameId: null,
+    identifier: "",
     userIp: null,
     history: [],
     isPlaying: false,
@@ -90,10 +95,11 @@ function App() {
   function newGame(e) {
     e.preventDefault()
     const newURL = baseUrl + '/new'
-    axios.get(newURL, { params: { key: gameName, ip_address: gameState.userIp } })
+    axios.get(newURL, { params: { key: userName, ip_address: gameState.userIp } })
       .then(function (response) {
         const updatedItems = {
-          "gameId": gameName,
+          "gameId": userName,
+          "identifier": response.data.identifier,
           "isPlaying": true,
           "history": [],
           "location": response.data.location,
@@ -111,7 +117,7 @@ function App() {
   function saveGame(e) {
     e.preventDefault()
     const saveURL = baseUrl + '/save'
-    axios.get(saveURL, { params: { key: gameState.gameId } })
+    axios.get(saveURL, { params: { identifier: gameState.identifier } })
       .then(function (response) {
         const updatedItems = {}
         updatedItems["output"] = response.data.output
@@ -130,8 +136,8 @@ function App() {
   function loadGame(e) {
     e.preventDefault()
     const loadURL = baseUrl + '/load'
-
-    axios.get(loadURL, { params: { key: gameState.gameId } })
+    identifier = loadRequest + "-" + gameState.ip_address
+    axios.get(loadURL, { params: { identifier: identifier } })
       .then(function (response) {
         setTest(response.data)
         const updatedItems = {
@@ -185,26 +191,62 @@ function App() {
     axios.get(quitURL, { params: { key: gameState.gameId } })
   };
 
+
+  function handleLoadgame() {
+    parse_input = input.split
+    // if the user has passed too many arguments to
+    if (parse_input.length() != 2) {
+      const updatedItems = {
+        "command": input,
+        "output": "Invalid format, please use:\nloadgame <game name>",
+      }
+      setGameState(gameState => ({
+        ...gameState,
+        ...updatedItems
+      }))
+    } else if (parse_input[1] === "continue") {
+      loadGame()
+    } else {
+      setLoadRequest(parse_input[1])
+      const updatedItems = {
+        "command": input,
+        "output": `Are you sure you would like to load ${parse_input[1]}?\n Your current progress will not be saved.\nEnter "loadgame continue" to confirm.` ,
+      }
+      setGameState(gameState => ({
+        ...gameState,
+        ...updatedItems
+      }))
+    }
+  }
+
   // each time a users presses enter to send a command
   // if the command is not an empty string, ping the server /
   // response data is used to update the interaction history and location
-  function handleCommand (e) {
+  function handleCommand(e) {
     e.preventDefault()
+    // do nothing if the user did not enter a command
     if (input === "") {
       return
     }
-    axios.get(baseUrl, { params: { command: input, key: gameState.gameId } })
-      .then(function (response) {
-        const updatedItems = {
-          "command": input,
-          "output": response.data.output,
-          "location": response.data.location
-        }
-        setGameState(gameState => ({
-          ...gameState,
-          ...updatedItems
-        }))
-      })
+    // call handleLoadgame if user input includes loadgame
+    if ("loadgame" in input) {
+      handleLoadgame()
+    }
+    // otherwise, send a request containing the command to the server
+    else {
+      axios.get(baseUrl, { params: { command: input, key: gameState.gameId } })
+        .then(function (response) {
+          const updatedItems = {
+            "command": input,
+            "output": response.data.output,
+            "location": response.data.location
+          }
+          setGameState(gameState => ({
+            ...gameState,
+            ...updatedItems
+          }))
+        })
+    }
   }
 
   return (
@@ -216,7 +258,7 @@ function App() {
           loadFunction={e => loadGame(e)}
           loadGames={loadGames}
           quitFunction={e => quitGame(e)}
-          onChange={e => setGameName(e.target.value)}
+          onChange={e => setUserName(e.target.value)}
           isPlaying={gameState.isPlaying}
           location={gameState.location}
         />
