@@ -20,7 +20,7 @@ const GameStats = (props) => {
                 <p className="sample-command">inventory</p>
                 <p className="font-small">To look at your inventory</p>
                 <p className="sample-command">help</p>
-                <p className="font-small">To see a list of other helpful command</p>
+                <p className="font-small">To see a list of other helpful commands</p>
             </div>
         </>)
 }

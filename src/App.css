@@ -101,31 +101,31 @@
 }
 
 .green-word {
-  font-size: clamp(13px, 0.7vw, 25px);
+  font-size: clamp(20px, 0.7vw, 25px);
   font-style: bolder;
   color: #76c442
 }
 
 .yellow-word {
-  font-size: clamp(13px, 0.7vw, 25px);
+  font-size: clamp(20px, 0.7vw, 25px);
   font-style: bolder;
   color: #f2c409
 }
 
 .orange-word {
-  font-size: clamp(13px, 0.7vw, 25px);
+  font-size: clamp(20px, 0.7vw, 25px);
   font-style: bolder;
   color: #D95D39
 }
 
 .purple-word {
-  font-size: clamp(13px, 0.7vw, 25px);
+  font-size: clamp(20px, 0.7vw, 25px);
   font-style: bolder;
   color: #B077FF
 }
 
 .pink-word {
-  font-size: clamp(13px, 0.7vw, 25px);
+  font-size: clamp(20px, 0.7vw, 25px);
   font-style: bolder;
   color: pink;
 }
