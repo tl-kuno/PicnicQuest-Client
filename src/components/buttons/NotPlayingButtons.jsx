@@ -8,7 +8,7 @@ import { NoSavesDropdown } from "../NoSavesDropdown";
 
 const NotPlayingButtons = (props) => {
     var availableSaves = true;
-    if (props.loadGames.length === 0) {
+    if ((props.loadGames).length === 0) {
         availableSaves = false;
     } 
     return (

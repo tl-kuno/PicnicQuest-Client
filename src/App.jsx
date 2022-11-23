@@ -16,13 +16,13 @@ function App() {
   const [userName, setUserName] = useState("")
 
   /* State Variables set by Server */
+  const [isPlaying, setIsPlaying] = useState(false)
   const [loadGames, setLoadGames] = useState([])
   const [gameState, setGameState] = useState({
     command: "",
     identifier: "",
     userIp: null,
     history: [],
-    isPlaying: false,
     location: "",
     offMsg: "",
     output: "",
@@ -112,6 +112,7 @@ function App() {
           }))
           setUserName("")
         })
+        .then(setIsPlaying(true))
     } else {
       alert("Whoops! Invalid Username. Username may only contain letters.")
     }
@@ -132,7 +133,6 @@ function App() {
       })
   }
 
-
   // To load a game, ping server /load
   // Response data will allow you to set the gameState
   // from the previously saved game's status 
@@ -140,15 +140,14 @@ function App() {
   function loadGame(e) {
     e.preventDefault()
     const loadURL = baseUrl + '/load'
-    const identifier = loadRequest + "-" + gameState.ip_address
+    const identifier = loadRequest + "-" + gameState.userIp
     axios.get(loadURL, { params: { identifier: identifier } })
       .then(function (response) {
+        setUserName(response.data.userName)
         const updatedItems = {
-          "command": response.data.command,
           "identifier": response.data.identifier,
-          "history": response.data.history,
+          "history": [],
           "input": "",
-          "isPlaying": true,
           "location": response.data.location,
           "output": response.data.output,
         }
@@ -157,6 +156,9 @@ function App() {
           ...updatedItems
         }))
       })
+      .then(
+        setIsPlaying(true)
+      )
   }
 
   // To quit the game, ping the server /quit
@@ -165,26 +167,26 @@ function App() {
   function quitGame(e) {
     e.preventDefault()
     const quitURL = baseUrl + '/quit'
-    while (gameState.offMsg === "") {
-      axios.get(quitURL, { params: { identifier: gameState.identifier } })
-        .then(function (response) {
-          setInput("")
-          setLoadGames(response.data.loadGames)
-          const updatedItems = {
-            "command": "",
-            "identifier": "",
-            "history": [],
-            "isPlaying": false,
-            "location": "",
-            "offMsg": response.data.output,
-            "output": "",
-          }
-          setGameState(gameState => ({
-            ...gameState,
-            ...updatedItems
-          }))
-        })
-    }
+
+    axios.get(quitURL, { params: { identifier: gameState.identifier, ip_address: gameState.userIp }})
+      .then(function (response) {
+        setInput("")
+        setLoadGames(response.data.loadGames)
+        const updatedItems = {
+          "command": "",
+          "identifier": "",
+          "history": [],
+          "location": "",
+          "offMsg": response.data.output,
+          "output": "",
+        }
+        setGameState(gameState => ({
+          ...gameState,
+          ...updatedItems
+        }))
+      })
+      .then(setIsPlaying(false))
+
   }
 
   // When the user leaves the page, ping server /quit
@@ -235,10 +237,10 @@ function App() {
           quitFunction={e => quitGame(e)}
           userName={userName}
           onUsernameChange={e => setUserName(e.target.value)}
-          isPlaying={gameState.isPlaying}
+          isPlaying={isPlaying}
           location={gameState.location}
         />
-        {gameState.isPlaying ?
+        {isPlaying ?
           <GameOnDisplay
             formSubmit={e => handleCommand(e)}
             onChange={e => setInput(e.target.value)}

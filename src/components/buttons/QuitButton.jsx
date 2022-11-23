@@ -5,7 +5,7 @@ const QuitGameButton = (props) => {
    
     return (
         <button 
-            onClick={props.quitFunction} 
+            onClick={props.onClick} 
             type="button" 
             className="wide-button nes-btn is-error">
             QUIT
