@@ -141,7 +141,7 @@ function App() {
     e.preventDefault()
     const loadURL = baseUrl + '/load'
     const identifier = loadRequest + "-" + gameState.userIp
-    axios.get(loadURL, { params: { identifier: identifier } })
+    axios.get(loadURL, { params: { identifier: identifier, "ip_address": gameState.userIp } })
       .then(function (response) {
         setUserName(response.data.userName)
         const updatedItems = {
