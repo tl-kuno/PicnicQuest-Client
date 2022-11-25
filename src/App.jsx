@@ -227,6 +227,16 @@ function App() {
   return (
     <div className="App">
       <main className='main-content'>
+        {isPlaying ?
+          <GameOnDisplay
+          formSubmit={e => handleCommand(e)}
+          onChange={e => setInput(e.target.value)}
+          history={gameState.history} />
+          :
+          <GameOffDisplay
+          offMsg={gameState.offMsg}
+          />
+        }
         <SidePanel
           newGameFunction={e => newGame(e)}
           saveFunction={e => saveGame(e)}
@@ -240,17 +250,8 @@ function App() {
           isPlaying={isPlaying}
           location={gameState.location}
         />
-        {isPlaying ?
-          <GameOnDisplay
-            formSubmit={e => handleCommand(e)}
-            onChange={e => setInput(e.target.value)}
-            history={gameState.history} />
-          :
-          <GameOffDisplay
-            offMsg={gameState.offMsg}
-          />
-        }
       </main>
+        <div className="footer">created by: <br /><mark className='purple-word'>Alex Meyers</mark>, <mark className='green-word'>Armon Tavakoulnia</mark>, & <mark className='pink-word'>Taylor Kuno</mark></div>
     </div>
   );
 };

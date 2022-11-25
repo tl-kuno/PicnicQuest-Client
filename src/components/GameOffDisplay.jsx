@@ -9,9 +9,9 @@ const GameOffDisplay = (props) => {
 
     return (
         <>
-            <div className='nes-container is-dark is-rounded game-display game-off' style={{ padding: "2vw", paddingTop: "3vw" }}>
-                <div><img src={junimo} className="game-off-junimo" alt="Junimo the cat"/></div>
+            <div className='nes-container is-dark is-rounded game-display game-off'>
                 <div className='nes-balloon from-right is-dark game-off-text'>{highlightedText}</div>
+                <div><img src={junimo} className="game-off-junimo" alt="Junimo the cat"/></div>
             </div>
         </>)
 }

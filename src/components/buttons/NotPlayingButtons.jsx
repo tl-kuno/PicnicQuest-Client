@@ -13,7 +13,7 @@ const NotPlayingButtons = (props) => {
     } 
     return (
         <>
-        <div className="panel-button-box nes-container is-dark is-rounded">
+        <div className="panel-button-box">
             <div className="panel-button-row">
                 <NewGameInput onChange={props.onUsernameChange}/>
             </div>
@@ -21,7 +21,7 @@ const NotPlayingButtons = (props) => {
                 <NewGameButton onClick={props.newGameFunction} userName={props.userName}/>
             </div>
         </div>
-                <div className="panel-button-box nes-container is-dark is-rounded">
+                <div className="panel-button-box">
                 <div className="panel-button-row">
                     {availableSaves ?
                     <LoadGameDropdown loadGames={props.loadGames} onChange={props.onLoadRequestChange} loadRequest={props.loadRequest}/>
