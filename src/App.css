@@ -8,14 +8,14 @@
 }
 
 .main-content {
-  margin: 10vh auto;
+  margin: 10vh min(40px, 5vw);
   margin-bottom: 10px;
   display: flex;
   flex-direction: row-reverse;
 }
 
 .game-display {
-  max-width: 1000px;
+  max-width: clamp(600px, 55vw, 1000px);  
   display: flex;
   flex-direction: column;
   border: 0px;
@@ -23,7 +23,7 @@
 }
 
 .side-panel {
-  max-width: 600px;
+  max-width: min(25vw, 400px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,8 +187,17 @@
   padding-left: 10px ;
   padding-bottom: 30px;
   color: white;
+  margin-left: min(40px, 5vw)
 }
 
 .game-off {
   align-items: flex-end;
+}
+
+.panel-button-row input {
+  font-size: 12px;
+}
+
+.nes-select {
+  font-size: 12px;
 }

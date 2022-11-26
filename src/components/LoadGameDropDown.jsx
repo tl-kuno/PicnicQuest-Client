@@ -7,7 +7,7 @@ const LoadGameDropdown = (props) => {
     return (
         <div className="nes-select is-dark">
             <select required id="dark_select" onChange={props.onChange} value={props.loadRequest} >
-            <option value="" disabled hidden>Saved Games</option>
+            <option value="" disabled hidden>Saved</option>
                 {props.loadGames.map((loadGame) => (
                     <option 
                     key = { uuidv4() } 
