@@ -2,7 +2,7 @@ import React from "react";
 import { GameStats } from "./GameStats";
 import { PlayingButtons } from "./buttons/PlayingButtons";
 import { NotPlayingButtons } from "./buttons/NotPlayingButtons";
-import logo from "../images/logo.png"
+import logo from "../resources/logo.png"
 
 
 const SidePanel = (props) => {

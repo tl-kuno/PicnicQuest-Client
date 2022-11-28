@@ -9,7 +9,7 @@ const GameOnDisplay = (props) => {
     return (
         <>
             <div className='nes-container is-dark is-rounded game-display' style={{ padding: "2vw", paddingTop: "3vw" }}>
-                <InteractionDisplay history={props.history} />
+                <InteractionDisplay history={props.history} loadGames={props.loadGames}/>
                 <form onSubmit={props.formSubmit}>
                     <MainInput
                         onChange={props.onChange}

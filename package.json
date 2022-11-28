@@ -10,6 +10,7 @@
     "react-dom": "^18.2.0",
     "react-scroll-to-bottom": "^4.2.0",
     "start": "^5.1.0",
+    "use-sound": "^4.0.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

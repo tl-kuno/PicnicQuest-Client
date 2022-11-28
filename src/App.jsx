@@ -1,19 +1,22 @@
 import './App.css';
 import { React, useState, useEffect } from 'react';
+import { useSound } from 'use-sound';
 import axios from 'axios';
 import "nes.css/css/nes.min.css";
 import { GameOnDisplay } from './components/GameOnDisplay';
 import { GameOffDisplay } from './components/GameOffDisplay'
 import { SidePanel } from './components/SidePanel';
+import happyTune from './resources/happyTune.wav'
 
 
 const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
-  /* State variables for taking input */
+  /* State variables for front end manipulation */
   const [input, setInput] = useState("")
   const [loadRequest, setLoadRequest] = useState("")
   const [userName, setUserName] = useState("")
+  const [playMusic] = useSound(happyTune, {volume:0.3, loop:true});
 
   /* State Variables set by Server */
   const [isPlaying, setIsPlaying] = useState(false)
@@ -91,6 +94,7 @@ function App() {
   // Response data will allow you to set initial gameState
   function newGame(e) {
     e.preventDefault()
+    playMusic()
     if (userName === "") {
       alert("Please enter a Username")
     } else if (loadGames.indexOf(userName) > -1) {
@@ -231,7 +235,9 @@ function App() {
           <GameOnDisplay
           formSubmit={e => handleCommand(e)}
           onChange={e => setInput(e.target.value)}
-          history={gameState.history} />
+          history={gameState.history} 
+          loadGames={loadGames}
+          />
           :
           <GameOffDisplay
           offMsg={gameState.offMsg}

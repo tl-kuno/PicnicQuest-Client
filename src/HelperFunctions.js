@@ -1,7 +1,7 @@
-const directions = ["north", "south", "east", "west"]
+const blueWords = ["north", "south", "east", "west"]
 const features = ["sofa", "tv",  "suitcase", "refrigerator", "shelves", "cleaning supplies", "blanket", "window", "windows", "sink", "bathtub", "rocking chair", "dirt pile", "guitar", "neighborhood", "table", "friends"]
 const items = ["blueberries", "mushrooms", "dog treats", "towel", "umbrella", "letter", "wooden spoon", "football helmet", "soap", "flashlight"]
-const npcs = ["mouse", "ants", "raccoon", "birds"]
+const orangeWords = ["mouse", "ants", "raccoon", "birds", "will not be saved"]
 const rooms = ["living room", "basement", "kitchen", "pantry", "bedroom", "bathroom", "porch", "alley", "roof", "henderson", "park"]
 const help = ["look:", "look at:", "go/move:", "take:", "drop:", "use:", "listen:", "wear:", "inventory:", "savegame:", "loadgame:", "other verbs:"]
 const bigWords = ["try these commands:"]
@@ -68,22 +68,24 @@ function highlightByType(string, searchWords, className){
     }
 }
 
-function hightLightInteractionWords(string){
+function hightLightInteractionWords(string, loadGames=[]){
 // split string into chunks
     // look for directions
-    let highlightedString = highlightByType(string, directions, "blue-word")
+    let highlightedString = highlightByType(string, blueWords, "blue-word")
     // look for features
     highlightedString = highlightByType(highlightedString, features, "green-word")
     // look for items
     highlightedString = highlightByType(highlightedString, items, "yellow-word")
     // look for NPCs
-    highlightedString = highlightByType(highlightedString, npcs, "orange-word")
+    highlightedString = highlightByType(highlightedString, orangeWords, "orange-word")
     // look for rooms
     highlightedString = highlightByType(highlightedString, rooms, "purple-word")
     // look for help commands
     highlightedString = highlightByType(highlightedString, help, "pink-word")
     // look for titles
     highlightedString = highlightByType(highlightedString, bigWords, "big-word")
+    // looking for loadgames
+    highlightedString = highlightByType(highlightedString, loadGames, "sample-command")
 
 return(highlightedString)}
 

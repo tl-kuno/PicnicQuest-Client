@@ -11,7 +11,9 @@ const InteractionDisplay = (props) => {
                     <Interaction 
                         key={uuidv4()}
                         type={interaction.type}
-                        content={interaction.content} />
+                        content={interaction.content} 
+                        loadGames={props.loadGames}
+                        />
                 ))}
             </ScrollToBottom>
     )

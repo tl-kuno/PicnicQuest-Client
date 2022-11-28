@@ -1,5 +1,5 @@
 import React from "react";
-import junimo from "../images/junimo1.png"
+import junimo from "../resources/junimo1.png"
 import { hightLightIntroductionWords } from "../HelperFunctions";
 var parse = require('html-react-parser')
 

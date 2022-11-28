@@ -5,7 +5,7 @@ var parse = require('html-react-parser')
 
 const InteractionHighlighter = (props) => {
 
-    const highlightedText = parse(hightLightInteractionWords(props.content))
+    const highlightedText = parse(hightLightInteractionWords(props.content, props.loadGames))
 
     return(
             <p className="interaction-content">{highlightedText}</p>
