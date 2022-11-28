@@ -1,6 +1,5 @@
 import './App.css';
 import { React, useState, useEffect } from 'react';
-import { useSound } from 'use-sound';
 import axios from 'axios';
 import "nes.css/css/nes.min.css";
 import { GameOnDisplay } from './components/GameOnDisplay';
@@ -13,11 +12,10 @@ import happyTune from './resources/happyTune.wav'
 const baseUrl = 'https://tlkuno.pythonanywhere.com'
 
 function App() {
-  /* State variables for front end manipulation */
+  /* State variables for user input */
   const [input, setInput] = useState("")
   const [loadRequest, setLoadRequest] = useState("")
   const [userName, setUserName] = useState("")
-  const [musicPlaying, setMusicPlaying] = useState(false)
 
   /* State Variables set by Server */
   const [isPlaying, setIsPlaying] = useState(false)
@@ -117,7 +115,6 @@ function App() {
           }))
           setUserName("")
         })
-        .then(setIsPlaying(true))
     } else {
       alert("Whoops! Invalid Username. Username may only contain letters.")
     }
@@ -190,9 +187,7 @@ function App() {
           ...updatedItems
         }))
       })
-      .then( () => {
-        setIsPlaying(false)
-        setMusicPlaying(false)})
+      .then(setIsPlaying(false))
 
   }
 
@@ -233,7 +228,6 @@ function App() {
 
   return (
     <div className="App">
-      <ReactHowler src={happyTune} loop={true} playing={musicPlaying} volume={0.3}/>
       <main className='main-content'>
         {isPlaying ?
           <GameOnDisplay
