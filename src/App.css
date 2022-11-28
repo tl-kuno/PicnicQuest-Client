@@ -9,7 +9,7 @@
 
 .main-content {
   margin: 2vh min(40px, 5vw);
-  max-height: 850px;
+  max-height: 840px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: row-reverse;
@@ -36,6 +36,7 @@
     margin-left: 5vw;
     margin-right: 5vw;
     flex-direction: column;
+    max-height: none;
   }
   .side-panel {
     width: 600px;
@@ -147,7 +148,7 @@
   padding: 3px;
   text-align: center;
   white-space: pre-wrap;
-  font-size: clamp(11px, 0.7vw, 18px);
+  font-size: clamp(15px, 0.5vw, 16px);
 }
 
 .game-off-junimo {
@@ -206,17 +207,7 @@
 }
 
 .room-word {
-  font-size: clamp(10px, 1vw, 18px)
-}
-
-.side-panel-label {
-  font-size: clamp(10px, 1vw, 18px)
-
-}
-
-.nes-container .with-title > .title {
-  font-size: clamp(10px, 1vw, 18px)
-
+  font-size: clamp(10px, 2vw, 18px)
 }
 
 .game-stats div {

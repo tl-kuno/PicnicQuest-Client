@@ -5,9 +5,11 @@ const orangeWords = ["mouse", "ants", "raccoon", "birds", "will not be saved"]
 const rooms = ["living room", "basement", "kitchen", "pantry", "bedroom", "bathroom", "porch", "alley", "roof", "henderson", "park"]
 const help = ["look:", "look at:", "go/move:", "take:", "drop:", "use:", "listen:", "wear:", "inventory:", "savegame:", "loadgame:", "other verbs:"]
 const bigWords = ["try these commands:"]
-const welcome = ["welcome to picnic quest!"]
-const characters = ["letter", "junimo", "marni"]
+const offMainText = ["welcome to picnic quest!", "you make your way to the park, where all of your friends are there waiting for you."]
+const offYellow = ["letter", "junimo", "marni", "congratulations!", "you've completed picnic quest!"]
 const gameFunctions = ["new game"]
+const gameOffReport = ["you brought", "out of 5 picnic items.", "and you invited", "out of 4 friends!"]
+const purpleOff = ["well done!"]
 
 
 function highlightByType(string, searchWords, className){
@@ -92,12 +94,16 @@ return(highlightedString)}
 function hightLightIntroductionWords(string){
     // split string into chunks
         // look for directions
-        let highlightedString = highlightByType(string, welcome, "blue-word")
+        let highlightedString = highlightByType(string, offMainText, "blue-word")
         // look for features
-        highlightedString = highlightByType(highlightedString, characters, "yellow-word")
+        highlightedString = highlightByType(highlightedString, offYellow, "yellow-word")
         // look for items
         highlightedString = highlightByType(highlightedString, gameFunctions, "green-word")
-    
+        // look for items
+        highlightedString = highlightByType(highlightedString, gameOffReport, "pink-word")
+        // look for items
+        highlightedString = highlightByType(highlightedString, purpleOff, "purple-word")
+
     return(highlightedString)}
 
 

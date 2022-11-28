@@ -1,6 +1,5 @@
 import './App.css';
 import { React, useState, useEffect } from 'react';
-import { useSound } from 'use-sound';
 import axios from 'axios';
 import "nes.css/css/nes.min.css";
 import { GameOnDisplay } from './components/GameOnDisplay';
@@ -26,11 +25,13 @@ function App() {
     command: "",
     identifier: "",
     userIp: null,
+    isPlaying: false,
     history: [],
     location: "",
     offMsg: "Uh Oh! Looks like something went wrong. Try re-loading your page.",
     output: "",
   })
+
 
   // on first page render, get the IP address of user
   useEffect(() => {
@@ -91,6 +92,23 @@ function App() {
     setInput("")
   }, [gameState.output])
 
+
+  // if a new offMsg is set, switch to game off display
+  useEffect(() => {
+    const updatedItems = {
+      "command": "",
+      "identifier": "",
+      "history": [],
+      "location": "",
+      "output": "",
+    }
+    setGameState(gameState => ({
+      ...gameState,
+      ...updatedItems
+    }))
+    setIsPlaying(false)
+  }, [gameState.offMsg])
+
   // To start a new game, ping the server /new
   // Response data will allow you to set initial gameState
   function newGame(e) {
@@ -106,7 +124,6 @@ function App() {
         .then(function (response) {
           const updatedItems = {
             "identifier": response.data.identifier,
-            "isPlaying": true,
             "history": [],
             "location": response.data.location,
             "output": response.data.output,
@@ -149,20 +166,16 @@ function App() {
     axios.get(loadURL, { params: { identifier: identifier, "ip_address": gameState.userIp } })
       .then(function (response) {
         setUserName(response.data.userName)
-        const updatedItems = {
-          "identifier": response.data.identifier,
-          "history": [],
-          "input": "",
-          "location": response.data.location,
-          "output": response.data.output,
-        }
+        const updatedItems = response.data
+        updatedItems["history"] = []
+        updatedItems["input"] = ""
         setGameState(gameState => ({
           ...gameState,
           ...updatedItems
         }))
       })
       .then(
-        setIsPlaying(true)
+        setIsPlaying(gameState.isPlaying)
       )
   }
 
@@ -218,11 +231,8 @@ function App() {
     else {
       axios.get(baseUrl, { params: { command: input, identifier: gameState.identifier } })
         .then(function (response) {
-          const updatedItems = {
-            "command": input,
-            "output": response.data.output,
-            "location": response.data.location
-          }
+          const updatedItems = response.data
+          updatedItems["command"]= input;
           setGameState(gameState => ({
             ...gameState,
             ...updatedItems
