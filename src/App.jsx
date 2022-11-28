@@ -6,6 +6,7 @@ import "nes.css/css/nes.min.css";
 import { GameOnDisplay } from './components/GameOnDisplay';
 import { GameOffDisplay } from './components/GameOffDisplay'
 import { SidePanel } from './components/SidePanel';
+import ReactHowler from 'react-howler';
 import happyTune from './resources/happyTune.wav'
 
 
@@ -16,7 +17,7 @@ function App() {
   const [input, setInput] = useState("")
   const [loadRequest, setLoadRequest] = useState("")
   const [userName, setUserName] = useState("")
-  const [playMusic] = useSound(happyTune, {volume:0.3, loop:true});
+  const [musicPlaying, setMusicPlaying] = useState(false)
 
   /* State Variables set by Server */
   const [isPlaying, setIsPlaying] = useState(false)
@@ -94,7 +95,7 @@ function App() {
   // Response data will allow you to set initial gameState
   function newGame(e) {
     e.preventDefault()
-    playMusic()
+    setMusicPlaying(true)
     if (userName === "") {
       alert("Please enter a Username")
     } else if (loadGames.indexOf(userName) > -1) {
@@ -189,7 +190,9 @@ function App() {
           ...updatedItems
         }))
       })
-      .then(setIsPlaying(false))
+      .then( () => {
+        setIsPlaying(false)
+        setMusicPlaying(false)})
 
   }
 
@@ -230,6 +233,7 @@ function App() {
 
   return (
     <div className="App">
+      <ReactHowler src={happyTune} loop={true} playing={musicPlaying} volume={0.3}/>
       <main className='main-content'>
         {isPlaying ?
           <GameOnDisplay
