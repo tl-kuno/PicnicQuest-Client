@@ -24,7 +24,7 @@ function App() {
     userIp: null,
     history: [],
     location: "",
-    offMsg: "",
+    offMsg: "Uh Oh! Looks like something went wrong. Try re-loading your page.",
     output: "",
   })
 
