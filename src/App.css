@@ -8,36 +8,37 @@
 }
 
 .main-content {
-  margin: 10vh min(40px, 5vw);
+  margin: 2vh min(40px, 5vw);
+  max-height: 850px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: row-reverse;
 }
 
 .game-display {
-  max-width: clamp(600px, 55vw, 1000px);  
+  width: clamp(600px, 55vw, 1000px);  
   display: flex;
   flex-direction: column;
   border: 0px;
-  font-size: clamp(12px, 0.7vw, 16px);
+  font-size: clamp(11px, 0.7vw, 14px);
 }
 
 .side-panel {
-  max-width: min(25vw, 400px);
+  width: clamp(250px, 25vw, 400px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-@media (max-width:650px) {
+@media (max-width:875px) {
   .main-content {
     margin-left: 5vw;
     margin-right: 5vw;
     flex-direction: column;
   }
   .side-panel {
-    max-width: 550px;
+    width: 600px;
   }
 }
 
@@ -55,8 +56,8 @@
 
 .wide-button {
   width: clamp(150px, 13vw, 250px);
-  height: clamp(50px, 3vw, 70px);
-  font-size: clamp(13px, 1vw, 25px);
+  height: clamp(35px, 2vw, 60px);
+  font-size: clamp(13px, 1vw, 20px);
 }
 
 .message-list {
@@ -82,7 +83,7 @@
 .balloon-container-left {
   margin-left: 1.5vw;
   margin-right: auto;
-  width: max(35vw, 400px);
+  width: 85%
 }
 
 .balloon-container-right {
@@ -99,37 +100,37 @@
 }
 
 .blue-word {
-  font-size: clamp(15px, 0.7vw, 20px);
+  font-size: clamp(15px, 0.7vw, 16px);
   font-style: bolder;
   color: #108de0
 }
 
 .green-word {
-  font-size: clamp(15px, 0.7vw, 20px);
+  font-size: clamp(15px, 0.5vw, 16px);
   font-style: bolder;
   color: #76c442
 }
 
 .yellow-word {
-  font-size: clamp(15px, 0.7vw, 20px);
+  font-size: clamp(15px, 0.5vw, 16px);
   font-style: bolder;
   color: #f2c409
 }
 
 .orange-word {
-  font-size: clamp(15px, 0.7vw, 20px);
+  font-size: clamp(15px, 0.5vw, 16px);
   font-style: bolder;
   color: #D95D39
 }
 
 .purple-word {
-  font-size: clamp(15px, 0.7vw, 20px);
+  font-size: clamp(15px, 0.5vw, 16px);
   font-style: bolder;
   color: #B077FF
 }
 
 .pink-word {
-  font-size: clamp(15px, 0.7vw, 20px);
+  font-size: clamp(15px, 0.5vw, 16px);
   font-style: bolder;
   color: pink;
 }
@@ -157,25 +158,27 @@
 
 .font-small {
   font-size: max(0.7vw, 10px);
+  margin-bottom: 8px;
 }
 
 .sample-command {
   color: pink;
   font-weight: bold;
   font-style: oblique;
-  font-size: max(13px, 0.4vw);
+  font-size: max(13px, 0.2vw);
   margin-bottom: 3px;
 }
 
 .new-game-input {
   font-size: 12px;
   background-color: #212529;
-  padding: 1rem
+  margin-bottom: 2px;
 }
 
-.game-off-logo {
+.game-logo {
   margin: min(2vw, 3px);
-  width: min(100%, 350px);
+  width: min(80%, 350px);
+  padding-bottom: 10px;
 }
 
 .nes-balloon {
@@ -200,4 +203,22 @@
 
 .nes-select {
   font-size: 12px;
+}
+
+.room-word {
+  font-size: clamp(10px, 1vw, 18px)
+}
+
+.side-panel-label {
+  font-size: clamp(10px, 1vw, 18px)
+
+}
+
+.nes-container .with-title > .title {
+  font-size: clamp(10px, 1vw, 18px)
+
+}
+
+.game-stats div {
+  width: 75%
 }

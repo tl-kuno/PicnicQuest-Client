@@ -8,7 +8,7 @@ import logo from "../images/logo.png"
 const SidePanel = (props) => {
     return (
         <div className="side-panel nes-container is-dark is-rounded">
-                <img src={logo} className="game-off-logo" alt="Picnic-Quest" />
+                <img src={logo} className="game-logo" alt="Picnic-Quest" />
             {props.isPlaying ?
                 <div>
                     <GameStats {...props} />
