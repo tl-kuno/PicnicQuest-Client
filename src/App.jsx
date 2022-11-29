@@ -175,7 +175,7 @@ function App() {
         }))
       })
       .then(
-        setIsPlaying(gameState.isPlaying)
+        setIsPlaying(true)
       )
   }
 
