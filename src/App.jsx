@@ -113,7 +113,6 @@ function App() {
   // Response data will allow you to set initial gameState
   function newGame(e) {
     e.preventDefault()
-    setMusicPlaying(true)
     if (userName === "") {
       alert("Please enter a Username")
     } else if (loadGames.indexOf(userName) > -1) {
@@ -134,7 +133,11 @@ function App() {
           }))
           setUserName("")
         })
-        .then(setIsPlaying(true))
+        .then(() => {
+          setIsPlaying(true)
+          setMusicPlaying(true)
+        }  
+          )
     } else {
       alert("Whoops! Invalid Username. Username may only contain letters.")
     }
