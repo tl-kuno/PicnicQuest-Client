@@ -7,7 +7,7 @@ const help = ["look:", "look at:", "go/move:", "take:", "drop:", "use:", "listen
 const bigWords = ["try these commands:"]
 const offMainText = ["welcome to picnic quest!", "you make your way to the park, where all of your friends are there waiting for you."]
 const offYellow = ["letter", "junimo", "marni", "congratulations!", "you've completed picnic quest!"]
-const gameFunctions = ["new game"]
+const gameFunctions = ["new"]
 const gameOffReport = ["you brought", "out of 5 picnic items.", "and you invited", "out of 4 friends!"]
 const purpleOff = ["well done!"]
 
