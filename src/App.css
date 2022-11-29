@@ -158,7 +158,7 @@
 }
 
 .font-small {
-  font-size: max(0.7vw, 10px);
+  font-size: clamp(10px, 0.7vw, 12px);
   margin-bottom: 8px;
 }
 
