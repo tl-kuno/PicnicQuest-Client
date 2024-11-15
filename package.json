@@ -1,5 +1,5 @@
 {
-  "homepage": "http://tl-kuno.github.io/picnic-quest",
+  "homepage": "https://tl-kuno.github.io/Pinic-Quest-UI/",
   "name": "picnic-quest-ui",
   "version": "0.1.0",
   "private": true,
@@ -20,6 +20,8 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
