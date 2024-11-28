@@ -4,6 +4,7 @@ import ReactHowler from 'react-howler';
 
 import "nes.css/css/nes.min.css";
 import happyTune from './resources/happyTune.wav';
+import mockConversation from './resources/mockConversation';
 
 import gameplay from './Gameplay.js';
 
@@ -24,8 +25,6 @@ class PicnicQuest extends React.Component {
       offMsg: "",
       gameState: {
         command: "",
-        identifier: "",
-        isPlaying: false,
         history: [],
         location: "",
         output: "",
@@ -34,13 +33,16 @@ class PicnicQuest extends React.Component {
   }
 
   async componentDidMount() {
-    const gameInstance = await gameplay.openGameServer();
-    let offMsg = "Uh Oh! Looks like something went wrong. Try re-loading your page.";
+    // const gameInstance = await gameplay.openGameServer();
+    // let offMsg = "Uh Oh! Looks like something went wrong. Try re-loading your page.";
 
-    if (gameInstance === "success") {
-      offMsg = "Welcome to Picnic Quest!\nI'm Junimo the cat, and it's so good that you're here!\nYou are now Marni, the adorable german shepard. You are all bark, and no bite, easily scared, but fierce when it comes to defending your crew! We live in a well-loved, one-story house in the suburbs with two humans who are off at their day jobs. As usual, you took this opportunity to take a nice long mid-day nap. I left you a letter, please read it when you wake up!\nEnter a name and select New to begin a new game!\n"
+    // if (gameInstance === "success") {
+    //   offMsg = "Welcome to Picnic Quest!\nI'm Junimo the cat, and it's so good that you're here!\nYou are now Marni, the adorable german shepard. You are all bark, and no bite, easily scared, but fierce when it comes to defending your crew! We live in a well-loved, one-story house in the suburbs with two humans who are off at their day jobs. As usual, you took this opportunity to take a nice long mid-day nap. I left you a letter, please read it when you wake up!\nEnter a name and select New to begin a new game!\n"
 
-    }
+    // }
+
+    const offMsg = "Welcome to Picnic Quest!\nI'm Junimo the cat, and it's so good that you're here!\nYou are now Marni, the adorable german shepard. You are all bark, and no bite, easily scared, but fierce when it comes to defending your crew! We live in a well-loved, one-story house in the suburbs with two humans who are off at their day jobs. As usual, you took this opportunity to take a nice long mid-day nap. I left you a letter, please read it when you wake up!\nEnter a name and select New to begin a new game!\n"
+
 
     setTimeout(() => { this.setState({ offMsg: offMsg, isLoading: false }) }, 2000)
   }
@@ -51,7 +53,6 @@ class PicnicQuest extends React.Component {
   // useEffect(() => {
   //   const updatedItems = {
   //     "command": "",
-  //     "identifier": "",
   //     "history": [],
   //     "location": "",
   //     "output": "",
@@ -82,39 +83,50 @@ class PicnicQuest extends React.Component {
     })
   }
 
+
   // To start a new game, ping the server /new
   // Response data will allow you to set initial gameState
   onNewGame = async () => {
-    const { userName, gameState } = this.state;
-    const newGame = await gameplay.newGame(userName)
+    // const { userName, gameState } = this.state;
+    // const newGame = await gameplay.newGame(userName)
 
-    if (newGame === "error") {
-      return this.setState({
-        offMsg: 'Sorry, I am still napping in the sun. Try starting a new game later.'
-      })
-    }
+    // if (newGame === "error") {
+    //   return this.setState({
+    //     offMsg: 'Sorry, I am still napping in the sun. Try starting a new game later.'
+    //   })
+    // }
 
-    const updatedGameState = {
-      ...gameState,
-      location: newGame.location,
-      output: newGame.output
-    }
+    // const updatedGameState = {
+    //   ...gameState,
+    //   location: newGame.location,
+    //   output: newGame.output
+    // }
+
+
+    // const updatedGameState = {
+    //   ...gameState,
+    //   location: newGame.location,
+    //   output: newGame.output
+    // }
 
     this.setState({
       isPlaying: true,
       musicPlaying: true,
-      gameState: updatedGameState
+      gameState: {
+        command: "",
+        history: mockConversation,
+        location: "DEMO",
+      }
     })
-
   }
 
   // To quit the game, ping the server /quit
   // Reset the gameState to original status
   onQuitGame = async (e) => {
-    const endOfGameMsg = await gameplay.quitGame()
+    // const endOfGameMsg = await gameplay.quitGame()
+    const endOfGameMsg = 'Thanks for playing. See you next time!'
     const endOfGameState = {
       "command": "",
-      "identifier": "",
       "history": [],
       "location": "",
       "output": "",
@@ -192,7 +204,7 @@ class PicnicQuest extends React.Component {
   }
 
   render() {
-    const { isPlaying, musicPlaying, userName, gameState } = this.state;
+    const { isPlaying, isLoading, musicPlaying, userName, gameState } = this.state;
     const { location } = gameState || {};
 
     const gameScreen = this.renderGameScreen();
@@ -208,6 +220,7 @@ class PicnicQuest extends React.Component {
             onNewGame={this.onNewGame}
             quitFunction={this.onQuitGame}
             isPlaying={isPlaying}
+            isLoading={isLoading}
             location={location}
           />
         </main>

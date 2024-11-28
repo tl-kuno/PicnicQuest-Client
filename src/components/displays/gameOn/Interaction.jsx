@@ -6,12 +6,14 @@ import { hightLightInteractionWords } from "../../../InteractionFormatter";
 
 const Interaction = (props) => {
 
-    const msgClass = ('user'.localeCompare(props.type)) ? 'balloon-container-left' : 'balloon-container-right';
-    const balloonClass = ('user'.localeCompare(props.type)) ? 'nes-balloon from-left is-dark bot-text fade-in' : 'nes-balloon from-right is-dark bot-text';
-    const pIdentityClass = ('user'.localeCompare(props.type)) ? 'bot-interact-text' : 'user-interact-text';
+    const isMsgFromUser = props.type === 'junimo';
+
+    const msgClass = isMsgFromUser ? 'balloon-container-left' : 'balloon-container-right';
+    const balloonClass = isMsgFromUser ? 'nes-balloon from-left is-dark bot-text fade-in' : 'nes-balloon from-right is-dark bot-text';
+    const pIdentityClass = isMsgFromUser ? 'bot-interact-text' : 'user-interact-text';
     const pClass = `interaction-content ${pIdentityClass}`
 
-    const formattedText = parse(hightLightInteractionWords(props.content))
+    const formattedText = parse(hightLightInteractionWords(props.msg))
 
     return (
         <div className="balloon-wrap">

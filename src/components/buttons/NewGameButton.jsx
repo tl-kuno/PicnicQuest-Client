@@ -2,13 +2,14 @@ import React from "react";
 
 
 const NewGameButton = (props) => {
+    const { userName, isLoading, onNewGame } = props;
     var className = "wide-button nes-btn is-success"
-    if (props.userName === "") {
+    if (userName === "" || isLoading) {
         className = "wide-button nes-btn is-disabled"
     }
     return (
         <button
-            onClick={props.onClick}
+            onClick={onNewGame}
             type="button"
             className={className}>
             NEW

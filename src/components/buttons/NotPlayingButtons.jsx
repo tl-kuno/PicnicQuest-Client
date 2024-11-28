@@ -10,7 +10,7 @@ const NotPlayingButtons = (props) => {
                     <NewGameInput {...props} />
                 </div>
                 <div className="panel-button-row">
-                    <NewGameButton onClick={() => props.onNewGame()} userName={props.userName} />
+                    <NewGameButton {...props} />
                 </div>
             </div>
         </>

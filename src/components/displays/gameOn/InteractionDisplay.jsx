@@ -10,7 +10,7 @@ const InteractionDisplay = (props) => {
                 <Interaction
                     key={uuidv4()}
                     type={interaction.type}
-                    content={interaction.content}
+                    msg={interaction.msg}
                     loadGames={props.loadGames}
                 />
             ))}

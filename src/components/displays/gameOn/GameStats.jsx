@@ -7,7 +7,7 @@ const GameStats = (props) => {
                 <p className="title">Current Room</p>
                 <h2 className="room-word">{props.location}</h2>
             </div>
-            <div className="nes-container with-title is-dark is-rounded">
+            <div className="nes-container with-title is-dark is-rounded command-list">
                 <p className="title side-panel-label">Sample Commands:</p>
                 <p className="sample-command">look</p>
                 <p className="font-small">To examine the room</p>

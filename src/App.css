@@ -1,29 +1,42 @@
 * {
   background-color: #212529;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .App {
-  width: fit-content;
-  margin: auto;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 }
 
 .main-content {
   margin: 2vh min(40px, 5vw);
-  max-height: 840px;
+  max-height: 85vh;
   margin-bottom: 10px;
   display: flex;
   flex-direction: row-reverse;
 }
 
 .game-display {
+  height: 80vh;
   width: clamp(600px, 55vw, 1000px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   border: 0px;
-  font-size: clamp(11px, 0.7vw, 14px);
+  font-size: 10px;
   padding: 2vw;
   padding-top: 3vw;
+}
+
+@media (orientation: portrait) {
+  .game-display {
+    height: 60vh;
+  }
 }
 
 .side-panel {
@@ -34,12 +47,11 @@
   justify-content: center;
 }
 
-@media (max-width:875px) {
+@media (orientation:portrait) {
   .main-content {
     margin-left: 5vw;
     margin-right: 5vw;
     flex-direction: column-reverse;
-    max-height: none;
   }
 
   .side-panel {
@@ -58,7 +70,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 1rem;
 }
 
 .wide-button {
@@ -102,48 +113,57 @@
   display: none;
 }
 
+.interaction-list {
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: flex-end;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
 .interaction-content {
   white-space: pre-wrap;
 }
 
 .blue-word {
-  font-size: clamp(15px, 0.7vw, 16px);
+  font-size: 13px;
   font-style: bolder;
   color: #108de0
 }
 
 .green-word {
-  font-size: clamp(15px, 0.5vw, 16px);
+  font-size: 13px;
   font-style: bolder;
   color: #76c442
 }
 
 .yellow-word {
-  font-size: clamp(15px, 0.5vw, 16px);
+  font-size: 13px;
   font-style: bolder;
   color: #f2c409
 }
 
 .orange-word {
-  font-size: clamp(15px, 0.5vw, 16px);
+  font-size: 13px;
   font-style: bolder;
   color: #D95D39
 }
 
 .purple-word {
-  font-size: clamp(15px, 0.5vw, 16px);
+  font-size: 13px;
   font-style: bolder;
   color: #B077FF
 }
 
 .pink-word {
-  font-size: clamp(15px, 0.5vw, 16px);
+  font-size: 13px;
   font-style: bolder;
   color: pink;
 }
 
 .big-word {
-  font-size: max(20px, 0.7vw);
+  font-size: 15px;
   font-style: bolder;
   color: white;
 }
@@ -175,7 +195,7 @@
 }
 
 .font-small {
-  font-size: clamp(10px, 1vw, 14px);
+  font-size: 10px;
   margin-bottom: 8px;
 }
 
@@ -183,8 +203,14 @@
   color: pink;
   font-weight: bold;
   font-style: oblique;
-  font-size: max(13px, 0.2vw);
+  font-size: 11px;
   margin-bottom: 3px;
+}
+
+@media (orientation: portrait) {
+  .command-list {
+    display: none;
+  }
 }
 
 .new-game-input {
@@ -195,11 +221,11 @@
 
 .game-logo {
   margin: min(2vw, 3px);
-  width: min(80%, 350px);
+  width: 175px;
   padding-bottom: 10px;
 }
 
-@media (max-width:875px) {
+@media (orientation:landscape) {
   .game-logo {
     width: min(80%, 150px);
   }
