@@ -2,17 +2,15 @@ import React from "react";
 
 
 const ConfirmButton = (props) => {
-   
+
     return (
-        <button 
+        <button
             onClick={props.onClick}
-            type="button" 
+            type="button"
             className="wide-button nes-btn is-primary">
             OKAY
         </button>
     )
 }
 
-export {
-    ConfirmButton,
-}
+export default ConfirmButton;

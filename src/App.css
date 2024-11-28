@@ -3,7 +3,7 @@
 }
 
 .App {
-  width:fit-content;
+  width: fit-content;
   margin: auto;
 }
 
@@ -16,11 +16,14 @@
 }
 
 .game-display {
-  width: clamp(600px, 55vw, 1000px);  
+  width: clamp(600px, 55vw, 1000px);
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   border: 0px;
   font-size: clamp(11px, 0.7vw, 14px);
+  padding: 2vw;
+  padding-top: 3vw;
 }
 
 .side-panel {
@@ -35,10 +38,12 @@
   .main-content {
     margin-left: 5vw;
     margin-right: 5vw;
-    flex-direction: column;
+    flex-direction: column-reverse;
     max-height: none;
   }
+
   .side-panel {
+    flex-direction: row;
     width: 600px;
   }
 }
@@ -53,6 +58,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin: 1rem;
 }
 
 .wide-button {
@@ -142,9 +148,20 @@
   color: white;
 }
 
+.loading-msg {
+  color: white;
+  font-size: max(20px, 0.7vw);
+  margin: auto !important;
+  min-width: 200px;
+}
+
+.sticky {
+  position: sticky;
+}
+
 .game-off-text {
   margin-left: auto;
-  margin-right: min(100px, 8vw);
+  margin-right: min(175px, 8vw);
   padding: 3px;
   text-align: center;
   white-space: pre-wrap;
@@ -182,13 +199,19 @@
   padding-bottom: 10px;
 }
 
+@media (max-width:875px) {
+  .game-logo {
+    width: min(80%, 150px);
+  }
+}
+
 .nes-balloon {
   padding-top: 0.8rem;
 }
 
 .footer {
   font-size: 10px;
-  padding-left: 10px ;
+  padding-left: 10px;
   padding-bottom: 30px;
   color: white;
   margin-left: min(40px, 5vw)
