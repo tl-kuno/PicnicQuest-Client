@@ -1,6 +1,6 @@
 {
-  "homepage": "https://tl-kuno.github.io/Pinic-Quest-UI/",
-  "name": "picnic-quest-ui",
+  "homepage": "https://tl-kuno.github.io/Pinic-Quest-Client/",
+  "name": "picnic-quest-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

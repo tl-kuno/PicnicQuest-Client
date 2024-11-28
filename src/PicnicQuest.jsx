@@ -6,7 +6,7 @@ import "nes.css/css/nes.min.css";
 import happyTune from './resources/happyTune.wav';
 import mockConversation from './resources/mockConversation';
 
-import gameplay from './Gameplay.js';
+// import gameplay from './Gameplay.js';
 
 import GameOnScreen from './components/displays/gameOn/GameOnScreen.jsx';
 import GameOffScreen from './components/displays/gameOff/GameOffScreen.jsx'
@@ -149,9 +149,9 @@ class PicnicQuest extends React.Component {
       return
     }
     // otherwise, send a request containing the command to the server
-    else {
-      const gameResponse = await gameplay.handleCommand(e.target.value)
-    }
+    // else {
+    //   const gameResponse = await gameplay.handleCommand(e.target.value)
+    // }
 
     // Every time new output is returned, update the interaction display
     // useEffect(() => {
