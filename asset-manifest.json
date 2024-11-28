@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Pinic-Quest-UI/static/css/main.bd5788cc.css",
+    "main.js": "/Pinic-Quest-UI/static/js/main.8739e361.js",
+    "static/media/happyTune.wav": "/Pinic-Quest-UI/static/media/happyTune.faa584af353abf1a3c80.wav",
+    "static/media/logo.png": "/Pinic-Quest-UI/static/media/logo.8d6adfec53fa2d6be6d6.png",
+    "index.html": "/Pinic-Quest-UI/index.html",
+    "main.bd5788cc.css.map": "/Pinic-Quest-UI/static/css/main.bd5788cc.css.map",
+    "main.8739e361.js.map": "/Pinic-Quest-UI/static/js/main.8739e361.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bd5788cc.css",
+    "static/js/main.8739e361.js"
+  ]
+}
